@@ -11,17 +11,19 @@
 
 MainWindow::MainWindow():QMainWindow()
 {
-    // add drop down menus
-    QMenu* StartMenu = menuBar()->addMenu("&Start");
-    QMenu* CloseMenu =  menuBar()->addMenu("&Close");
 
-    QAction* CloseAction = CloseMenu->addAction("&Exit Game", this, SLOT(close()));
+    // add drop down menus
+    QMenu* Menu = menuBar()->addMenu("&File");
+
     //saveAction->setShortcut( QKeySequence::Save );
 
-    QAction* StartAction = StartMenu->addAction("&Start Game", this, SLOT(newGame(scene*)));
+    QAction* StartAction = Menu->addAction("&Start Game", this, SLOT(StartButton_Clicked()));
+    QAction* CloseAction = Menu->addAction("&Exit Game", this, SLOT(close()));
+
+
+    connect(this, SIGNAL(MainWindow::StartAction), this, SLOT(newGame(Scene*)));
 
     // connect message signal from scene to showMessage slot
-    connect(scene, SIGNAL(StartAction), this, SLOT(newGame(Scene*)));
 
     /* add status bar message
     statusBar()->showMessage("QSimulate has started");*/
@@ -51,8 +53,27 @@ MainWindow::MainWindow():QMainWindow()
   ship->setFocus();*/
 }
 
+void MainWindow::StartButton_Clicked()
+{
+    mainship *ship = new mainship();
+    ship->setTransformOriginPoint(12.5,12.5);
+    ship->setRect(0,0,25,25); // change the rect size
+    ship->setPen(QPen(Qt::red, 5));
+    QPainter::SmoothPixmapTransform;
+    ship->setPos(width()/2,height()/2);
+
+    ship->setFlag(QGraphicsItem::ItemIsFocusable);
+    ship->setFocus();
+
+    scene->addItem(ship);
+}
+
+
+
+/*
 void MainWindow:: newGame(Scene *scene)
 {
+
     // create an item to add to the scene
     mainship *ship = new mainship();
     ship->setTransformOriginPoint(12.5,12.5);
@@ -66,3 +87,4 @@ void MainWindow:: newGame(Scene *scene)
 
     scene->addItem(ship);
 }
+*/

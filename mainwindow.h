@@ -7,6 +7,7 @@ class Scene;
 
 class MainWindow : public QMainWindow
 {
+    Q_OBJECT
 public:
     MainWindow();// constructor
 
@@ -14,7 +15,7 @@ private:
     Scene *scene;// the uh... scene
 
 public slots:
-   void newGame(Scene *scene);
+   void StartButton_Clicked();
 
 };
 
