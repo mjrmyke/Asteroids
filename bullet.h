@@ -8,8 +8,10 @@ class Bullet: public QObject,public QGraphicsRectItem{
     Q_OBJECT
 public:
     Bullet();
+    int angle;
 public slots:
     void move();
+
 };
 
 #endif // BULLET_H

@@ -4,6 +4,8 @@
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include <QPainter>
+#include <QtMath>
+int theta;
 
 void mainship::keyPressEvent(QKeyEvent *event)
 {
@@ -13,6 +15,7 @@ void mainship::keyPressEvent(QKeyEvent *event)
         QPointF dp = this->boundingRect().center();
         itTransf.translate( dp.x(), dp.y());
         itTransf.rotate( rotation() - 5, Qt::ZAxis);
+        theta= theta-5;
         itTransf *= QTransform::fromScale( scale(), scale());
         itTransf.translate( -dp.x(), -dp.y());
         setTransform(itTransf);
@@ -23,13 +26,14 @@ void mainship::keyPressEvent(QKeyEvent *event)
         QPointF dp = this->boundingRect().center();
         itTransf.translate( dp.x(), dp.y());
         itTransf.rotate( rotation() + 5, Qt::ZAxis);
+        theta= theta+5;
         itTransf *= QTransform::fromScale( scale(), scale());
         itTransf.translate( -dp.x(), -dp.y());
         setTransform(itTransf);
     }
     else if (event->key() == Qt::Key_Up)
     {
-        setPos(x(),y()-5);
+        setPos(x()+2*qCos(theta),y()+2*qSin(theta));
     }
     else if (event->key() == Qt::Key_Down)
     {
@@ -40,6 +44,7 @@ void mainship::keyPressEvent(QKeyEvent *event)
         // create a bullet
         Bullet * bullet = new Bullet();
         bullet->setPos(x(),y());
+        bullet->angle=theta;
         scene()->addItem(bullet);
     }
 }

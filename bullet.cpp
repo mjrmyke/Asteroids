@@ -6,8 +6,9 @@
 
 Bullet::Bullet(){
     // draw the rect
-    setRect(10,12.5,5,10);
+    setRect((10*qCos(angle*(3.14/180))),(12.55*qSin(angle*(3.14/180))),5,10);
     setPen(QPen(Qt::green, 5));
+
 
     // connect
     QTimer * timer = new QTimer();
@@ -17,7 +18,7 @@ Bullet::Bullet(){
 
 void Bullet::move(){
     // move bullet up
-    setPos(x(),y()-10);
+    setPos(x()+(5*qCos(angle*(3.14/180))),y()+(5*qSin(angle*(3.14/180))));
     if (pos().y() < 0)
     {
         delete this;

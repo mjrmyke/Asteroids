@@ -7,6 +7,7 @@ class mainship: public QGraphicsRectItem
 {
 public:
     void keyPressEvent(QKeyEvent * event);
+    int theta;
 
 };
 
