@@ -5,9 +5,6 @@
 #include <QObject>
 #include <QBasicTimer>
 #include <QTimerEvent>
-
-#include <QTimer>
-#include <QGraphicsItem>
 #include <QPainter>
 #include <QtMath>
 #include <cmath>

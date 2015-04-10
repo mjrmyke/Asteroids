@@ -1,6 +1,6 @@
 #include "bullet.h"
 
-// ADD DESC
+// Default constructor.
 Bullet::Bullet()
 {
     // draw the rect

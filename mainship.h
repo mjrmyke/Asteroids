@@ -15,18 +15,29 @@
 #include <QObject>
 #include <QMainWindow>
 
-class mainship: /*public QObject,*/ public QGraphicsRectItem
+#include <QBasicTimer>
+#include <QTimerEvent>
+
+class mainship: public QObject, public QGraphicsRectItem
 {
-    //Q_OBJECT
+    Q_OBJECT
+
+private:
+    float curAngle;
+    float momentumAngle;
+    float speed;
+    QBasicTimer timer;
 
 public:
-    //mainship();
-    void keyPressEvent(QKeyEvent * event);
-    float theta;
-    float velocity;
+    mainship();
+    void keyPressEvent(QKeyEvent *event);
 
-//public slots:
-    //void updatePos();
+
+protected:
+    void timerEvent(QTimerEvent *event);
+
+public slots:
+    void updatePos();
 
 };
 

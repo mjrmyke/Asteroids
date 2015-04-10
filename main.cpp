@@ -14,7 +14,6 @@
 // ADD DESC
 int main(int argc, char *argv[])
 {
-
   // create main event loop handler and parse command line arguments
   QApplication app(argc, argv);
 

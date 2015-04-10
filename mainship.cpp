@@ -1,23 +1,35 @@
 #include "mainship.h"
 
 // ADD DESC
-/*mainship::mainship()
+mainship::mainship()
 {
-    theta = 135;
-    velocity = 0;
-    // connect
-    // WHY THE HELL WON'T THIS WORK!
+    curAngle = 0;
+    speed = 0;
+    momentumAngle = 0;
+
+    timer.start(16.67, this);
+
+    /* WHY THE HELL WON'T THIS WORK!?
     QTimer * timer2 = new QTimer();
     //QObject::connect(timer2,(SIGNAL(timeout()),this,SLOT(updatePos())));
     QObject::connect(this, SIGNAL(timeout()), SLOT(updatePos()));
-    timer2->start(16.67);// 60FPS babyy.
+    timer2->start(16.67);// 60FPS babyy.*/
 }
 
 // ADD DESC
 void mainship::updatePos()
 {
-    setPos(x()+velocity*qCos(theta), y()+velocity*qSin(theta));
-}*/
+    setPos(x()+speed*qCos(momentumAngle), y()+speed*qSin(momentumAngle));
+}
+
+// Fires whenever the timer fires.
+void mainship::timerEvent(QTimerEvent *event)
+{
+    if (event->timerId() == timer.timerId())
+    {
+        updatePos();
+    }
+}
 
 // ADD DESC
 void mainship::keyPressEvent(QKeyEvent *event)
@@ -28,10 +40,10 @@ void mainship::keyPressEvent(QKeyEvent *event)
         QPointF dp = this->boundingRect().center();
         itTransf.translate( dp.x(), dp.y() );
         itTransf.rotate( rotation()-5, Qt::ZAxis );
-        theta -= 5;// store rotation values
-        // ensure 0<=theta<360
-        if(theta >= 360){theta = 360%static_cast<int>(theta);}
-        if(theta < 0){theta = 360+theta;}
+        curAngle -= 5;// store rotation values
+        // ensure 0<=curAngle<360
+        if(curAngle >= 360){curAngle = 360%static_cast<int>(curAngle);}
+        if(curAngle < 0){curAngle = 360+curAngle;}
         itTransf *= QTransform::fromScale( scale(), scale() );
         itTransf.translate( -dp.x(), -dp.y() );
         setTransform(itTransf);
@@ -42,10 +54,10 @@ void mainship::keyPressEvent(QKeyEvent *event)
         QPointF dp = this->boundingRect().center();
         itTransf.translate( dp.x(), dp.y() );
         itTransf.rotate( rotation()+5, Qt::ZAxis );
-        theta += 5;// store rotation values
-        // ensure 0<=theta<360
-        if(theta >= 360){theta = 360%static_cast<int>(theta);}
-        if(theta < 0){theta = 360+theta;}
+        curAngle += 5;// store rotation values
+        // ensure 0<=curAngle<360
+        if(curAngle >= 360){curAngle = 360%static_cast<int>(curAngle);}
+        if(curAngle < 0){curAngle = 360+curAngle;}
         itTransf *= QTransform::fromScale( scale(), scale() );
         itTransf.translate( -dp.x(), -dp.y() );
         setTransform(itTransf);
@@ -53,21 +65,22 @@ void mainship::keyPressEvent(QKeyEvent *event)
     else if (event->key() == Qt::Key_Up)
     {
         // for momentum conservation
-        velocity += 1;
+        // add curAngle to momentumAngle and speed for accurate momentum
+
         // for right now
-        setPos(x()+4*qCos(theta*3.14/180), y()+4*qSin(theta*3.14/180));
+        setPos(x()+4*qCos(curAngle*3.14/180), y()+4*qSin(curAngle*3.14/180));
     }
     else if (event->key() == Qt::Key_Down)
     {
         // for momentum conservation
-        velocity -= 1;
+
         // for right now
-        setPos(x()-2*qCos(theta*3.14/180), y()-2*qSin(theta*3.14/180));
+        setPos(x()-2*qCos(curAngle*3.14/180), y()-2*qSin(curAngle*3.14/180));
     }
     else if (event->key() == Qt::Key_Space)
     {
         // create a bullet
-        Bullet *bullet = new Bullet(theta);
+        Bullet *bullet = new Bullet(curAngle);
         bullet->setPos(x(),y());
         scene()->addItem(bullet);
     }
