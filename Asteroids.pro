@@ -21,7 +21,8 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     scene.h \
     mainship.h \
-    bullet.h
+    bullet.h \
+    quickmath.h
 
 RESOURCES += \
     resources.qrc
