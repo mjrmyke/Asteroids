@@ -6,6 +6,7 @@
 #include <QMenuBar>
 #include <QGraphicsView>
 
+// ADD DESC
 MainWindow::MainWindow():QMainWindow()
 {
     // add drop down menus
@@ -24,6 +25,7 @@ MainWindow::MainWindow():QMainWindow()
     setCentralWidget(view);
 }
 
+// ADD DESC
 void MainWindow::StartButton_Clicked()
 {
     mainship *ship = new mainship();

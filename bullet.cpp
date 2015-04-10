@@ -1,56 +1,53 @@
 #include "bullet.h"
-#include <iostream>
 
+// ADD DESC
 Bullet::Bullet()
 {
-    std::cout<<"angle"<<angle2<<"\n";
     // draw the rect
 
     // size and position
-    setRect((10*qCos(angle2*(M_PI/180))),(12.55*qSin(angle2*(M_PI/180))),5,10);
+    setRect((10*qCos(angle*(M_PI/180))),(12.55*qSin(angle*(M_PI/180))),5,5);
     setPen(QPen(Qt::green, 1));
 
-    rotate();
+    QTransform itTransf = transform();
+    QPointF dp = this->boundingRect().center();
+    itTransf.translate( dp.x(), dp.y() );
+    itTransf.rotate( angle, Qt::ZAxis );
+    itTransf *= QTransform::fromScale( scale(), scale() );
+    itTransf.translate( -dp.x(), -dp.y() );
+    setTransform(itTransf);
 
     // updates at 60FPS
     timer.start(16.67, this);
 
     // this broke for some reason
-    /*// connect
-    QTimer * timer = new QTimer();
+    /*QTimer * timer = new QTimer();
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));
     timer->start(16.67);// 60FPS babyy.*/
 }
 
+// Constructs with an angle to enable bullet orientation.
 Bullet::Bullet(float angle)
 {
-    std::cout<<"angle"<<angle2<<"\n";
+    // What do the 10 and 12.55 do?
+    setRect((10*qCos(angle*(M_PI/180))), (12.55*qSin(angle*(M_PI/180))),3,1);
+    setPen(QPen(Qt::green, 2));
 
-    setRect((10*qCos(angle2*(M_PI/180))),(12.55*qSin(angle2*(M_PI/180))),5,2);
-    setPen(QPen(Qt::green, 1));
-
-    this->angle2 = angle;
-    rotate();
-
-    timer.start(16.67, this);
-}
-
-void Bullet::setAngle2(float a)
-{
-    angle2 = a;
-}
-
-void Bullet::rotate()
-{
+    // rotates bullet
+    this->angle = angle;
     QTransform itTransf = transform();
     QPointF dp = this->boundingRect().center();
     itTransf.translate( dp.x(), dp.y() );
-    itTransf.rotate( angle2, Qt::ZAxis );
+    itTransf.rotate( angle, Qt::ZAxis );
     itTransf *= QTransform::fromScale( scale(), scale() );
     itTransf.translate( -dp.x(), -dp.y() );
     setTransform(itTransf);
+
+    // start the timer. 16.67ms = 60FPS
+    timer.start(16.67, this);
 }
 
+// Fires whenever the timer fires.
 void Bullet::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timer.timerId())
@@ -59,10 +56,11 @@ void Bullet::timerEvent(QTimerEvent *event)
     }
 }
 
+// Updates the bullets position.
 void Bullet::move()
 {
     // move bullet
-    setPos(x()+(6*qCos(angle2*(M_PI/180))), y()+(6*qSin(angle2*(M_PI/180))));
+    setPos(x()+(5*qCos(angle*(M_PI/180))), y()+(5*qSin(angle*(M_PI/180))));
     if (pos().y() < 0)
     {
         delete this;

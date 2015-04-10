@@ -18,8 +18,7 @@ class Bullet: public QObject, public QGraphicsRectItem
 
 private:
     QBasicTimer timer;
-    void rotate();
-    float angle2;
+    float angle;
 
 protected:
     void timerEvent(QTimerEvent *event);
@@ -27,8 +26,6 @@ protected:
 public:
     Bullet();
     Bullet(float angle);
-    double angle;
-    void setAngle2(float a);
 
 public slots:
     void move();

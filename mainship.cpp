@@ -1,5 +1,6 @@
 #include "mainship.h"
 
+// ADD DESC
 /*mainship::mainship()
 {
     theta = 135;
@@ -12,14 +13,15 @@
     timer2->start(16.67);// 60FPS babyy.
 }
 
+// ADD DESC
 void mainship::updatePos()
 {
     setPos(x()+velocity*qCos(theta), y()+velocity*qSin(theta));
 }*/
 
+// ADD DESC
 void mainship::keyPressEvent(QKeyEvent *event)
 {
-    //std::cout<<"theta"<<theta<<"\n";
     if (event->key() == Qt::Key_Left)
     {
         QTransform itTransf = transform();
@@ -50,22 +52,23 @@ void mainship::keyPressEvent(QKeyEvent *event)
     }
     else if (event->key() == Qt::Key_Up)
     {
+        // for momentum conservation
         velocity += 1;
+        // for right now
         setPos(x()+4*qCos(theta*3.14/180), y()+4*qSin(theta*3.14/180));
     }
     else if (event->key() == Qt::Key_Down)
     {
+        // for momentum conservation
         velocity -= 1;
+        // for right now
         setPos(x()-2*qCos(theta*3.14/180), y()-2*qSin(theta*3.14/180));
     }
     else if (event->key() == Qt::Key_Space)
     {
         // create a bullet
-        Bullet * bullet = new Bullet(theta);
+        Bullet *bullet = new Bullet(theta);
         bullet->setPos(x(),y());
-        std::cout<<"theta"<<theta<<"\n";
-        //bullet->angle = theta;
-        //bullet->setAngle2(theta);
         scene()->addItem(bullet);
     }
 }
