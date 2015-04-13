@@ -2,6 +2,7 @@
 #define mainship_h
 
 #include "bullet.h"
+#include "updatepos.h"
 #include <QKeyEvent>
 #include <QGraphicsScene>
 #include <QGraphicsItem>
@@ -23,9 +24,8 @@ class mainship: public QObject, public QGraphicsRectItem
     Q_OBJECT
 
 private:
+    updatePos fields;
     float curAngle;
-    float momentumAngle;
-    float speed;
     QBasicTimer timer;
 
 public:
@@ -37,7 +37,7 @@ protected:
     void timerEvent(QTimerEvent *event);
 
 public slots:
-    void updatePos();
+    void move();
 
 };
 

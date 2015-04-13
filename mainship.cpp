@@ -4,8 +4,6 @@
 mainship::mainship()
 {
     curAngle = 0;
-    speed = 0;
-    momentumAngle = 0;
 
     timer.start(16.67, this);
 
@@ -17,9 +15,9 @@ mainship::mainship()
 }
 
 // ADD DESC
-void mainship::updatePos()
+void mainship::move()
 {
-    setPos(x()+speed*qCos(momentumAngle), y()+speed*qSin(momentumAngle));
+    setPos(x()+fields.getXSpeed(), y()+fields.getYSpeed());
 }
 
 // Fires whenever the timer fires.
@@ -27,7 +25,7 @@ void mainship::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timer.timerId())
     {
-        updatePos();
+        move();
     }
 }
 
@@ -66,16 +64,16 @@ void mainship::keyPressEvent(QKeyEvent *event)
     {
         // for momentum conservation
         // add curAngle to momentumAngle and speed for accurate momentum
-
+        fields.setXSpeed(4, curAngle);
         // for right now
-        setPos(x()+4*qCos(curAngle*3.14/180), y()+4*qSin(curAngle*3.14/180));
+        //setPos(x()+4*qCos(curAngle*3.14/180), y()+4*qSin(curAngle*3.14/180));
     }
     else if (event->key() == Qt::Key_Down)
     {
         // for momentum conservation
-
+        fields.setXSpeed(-2, curAngle);
         // for right now
-        setPos(x()-2*qCos(curAngle*3.14/180), y()-2*qSin(curAngle*3.14/180));
+        //setPos(x()-2*qCos(curAngle*3.14/180), y()-2*qSin(curAngle*3.14/180));
     }
     else if (event->key() == Qt::Key_Space)
     {
