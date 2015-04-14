@@ -26,8 +26,8 @@ Bullet::Bullet()
     timer->start(16.67);// 60FPS babyy.*/
 }
 
-// Constructs with an angle to enable bullet orientation.
-Bullet::Bullet(float angle)
+// Constructs with an angle and speed to enable realistic bullet firing.
+Bullet::Bullet(float angle, float speedX, float speedY)
 {
     // What do the 10 and 12.55 do?
     setRect((10*qCos(angle*(M_PI/180))), (12.55*qSin(angle*(M_PI/180))),5,1);
@@ -42,6 +42,10 @@ Bullet::Bullet(float angle)
     itTransf *= QTransform::fromScale( scale(), scale() );
     itTransf.translate( -dp.x(), -dp.y() );
     setTransform(itTransf);
+
+    // sets initial speeds
+    this->initSpeedX = speedX;
+    this->initSpeedY = speedY;
 
     // start the timer. 16.67ms = 60FPS
     timer.start(16.67, this);
@@ -60,7 +64,8 @@ void Bullet::timerEvent(QTimerEvent *event)
 void Bullet::move()
 {
     // move bullet
-    setPos(x()+(5*qCos(angle*(M_PI/180))), y()+(5*qSin(angle*(M_PI/180))));
+    setPos(x()+abs(initSpeedX)+(5*qCos(angle*(M_PI/180))),
+           y()+abs(initSpeedY)+(5*qSin(angle*(M_PI/180))));
     if (pos().y() < 0)
     {
         delete this;

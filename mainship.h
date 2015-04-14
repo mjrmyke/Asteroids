@@ -9,6 +9,8 @@
 #include <QPainter>
 #include <QtMath>
 
+#include <cmath>
+
 #include <iostream>
 #include <QTimer>
 

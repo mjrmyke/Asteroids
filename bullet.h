@@ -16,13 +16,15 @@ class Bullet: public QObject, public QGraphicsRectItem
 private:
     QBasicTimer timer;
     float angle;
+    float initSpeedX;
+    float initSpeedY;
 
 protected:
     void timerEvent(QTimerEvent *event);
 
 public:
     Bullet();
-    Bullet(float angle);
+    Bullet(float angle, float speedX, float speedY);
 
 public slots:
     void move();

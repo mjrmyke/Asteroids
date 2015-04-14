@@ -80,23 +80,23 @@ void mainship::keyPressEvent(QKeyEvent *event)
     else if (event->key() == Qt::Key_Q)
     {
         // for momentum conservation
-        if(fields.getXSpeed() > 0.1f)
+        if(fields.getXSpeed() >= 0.2f)
         {
-            fields.addXSpeed(-0.1f);
+            fields.addXSpeed(-0.2f);
         }
-        else if(fields.getXSpeed() < -0.1f)
+        else if(fields.getXSpeed() <= -0.2f)
         {
-            fields.addXSpeed(0.1f);
+            fields.addXSpeed(0.2f);
         }
-        if(fields.getYSpeed() > 0.1f)
+        if(fields.getYSpeed() >= 0.2f)
         {
-            fields.addYSpeed(-0.1f);
+            fields.addYSpeed(-0.2f);
         }
-        else if(fields.getYSpeed() < -0.1f)
+        else if(fields.getYSpeed() <= -0.2f)
         {
-            fields.addYSpeed(0.1f);
+            fields.addYSpeed(0.2f);
         }
-        else
+        else if(abs(fields.getXSpeed()) < 0.2f and abs(fields.getYSpeed()) < 0.2f)
         {
             fields.setXSpeed(0.0f);
             fields.setYSpeed(0.0f);
@@ -105,7 +105,7 @@ void mainship::keyPressEvent(QKeyEvent *event)
     else if (event->key() == Qt::Key_Space)
     {
         // create a bullet
-        Bullet *bullet = new Bullet(curAngle);
+        Bullet *bullet = new Bullet(curAngle, fields.getXSpeed(), fields.getYSpeed());
         bullet->setPos(x(),y());
         scene()->addItem(bullet);
     }
