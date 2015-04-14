@@ -1,4 +1,9 @@
 # Asteroids
 CSCI 41 Final group project
 
-Ships moving well, bullets are moving well. Menu Bar works. Meets all requirements for Checkpoint 1.
+TODO:
+Asteroid addition.
+Master game loop implementation.
+Putting all created items in lists.
+Collusion detection.
+Other extra features.
