@@ -37,8 +37,8 @@ void mainship::keyPressEvent(QKeyEvent *event)
         QTransform itTransf = transform();
         QPointF dp = this->boundingRect().center();
         itTransf.translate( dp.x(), dp.y() );
-        itTransf.rotate( rotation()-5, Qt::ZAxis );
-        curAngle -= 5;// store rotation values
+        itTransf.rotate( rotation()-10, Qt::ZAxis );
+        curAngle -= 10;// store rotation values
         // ensure 0<=curAngle<360
         if(curAngle >= 360){curAngle = 360%static_cast<int>(curAngle);}
         if(curAngle < 0){curAngle = 360+curAngle;}
@@ -51,8 +51,8 @@ void mainship::keyPressEvent(QKeyEvent *event)
         QTransform itTransf = transform();
         QPointF dp = this->boundingRect().center();
         itTransf.translate( dp.x(), dp.y() );
-        itTransf.rotate( rotation()+5, Qt::ZAxis );
-        curAngle += 5;// store rotation values
+        itTransf.rotate( rotation()+10, Qt::ZAxis );
+        curAngle += 10;// store rotation values
         // ensure 0<=curAngle<360
         if(curAngle >= 360){curAngle = 360%static_cast<int>(curAngle);}
         if(curAngle < 0){curAngle = 360+curAngle;}
@@ -64,14 +64,16 @@ void mainship::keyPressEvent(QKeyEvent *event)
     {
         // for momentum conservation
         // add curAngle to momentumAngle and speed for accurate momentum
-        fields.setXSpeed(4, curAngle);
+        fields.setXSpeed(1, curAngle);
+        fields.setYSpeed(1, curAngle);
         // for right now
         //setPos(x()+4*qCos(curAngle*3.14/180), y()+4*qSin(curAngle*3.14/180));
     }
     else if (event->key() == Qt::Key_Down)
     {
         // for momentum conservation
-        fields.setXSpeed(-2, curAngle);
+        fields.setXSpeed(-0.5, curAngle);
+        fields.setYSpeed(-0.5, curAngle);
         // for right now
         //setPos(x()-2*qCos(curAngle*3.14/180), y()-2*qSin(curAngle*3.14/180));
     }
