@@ -15,6 +15,22 @@ MainWindow::MainWindow():QMainWindow()
     QAction* StartAction = Menu->addAction("&Start Game", this, SLOT(StartButton_Clicked()));
     QAction* CloseAction = Menu->addAction("&Exit Game", this, SLOT(close()));
 
+
+    intro = new Scene();
+    QGraphicsView *IntroView = new QGraphicsView(intro);
+    IntroView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    IntroView->setFrameStyle(0);
+    IntroView->setSceneRect(0,0,800,600);
+    IntroView->setBackgroundBrush(QBrush(QImage(":/images/intro.png")));
+    setCentralWidget(IntroView);
+
+}
+
+// ADD DESC
+void MainWindow::StartButton_Clicked()
+{
+
+
     // create scene and central widget view of scene
     scene = new Scene();
     QGraphicsView *view = new QGraphicsView(scene);
@@ -23,11 +39,10 @@ MainWindow::MainWindow():QMainWindow()
     view->setSceneRect(0,0,800,600);
     view->setBackgroundBrush(QBrush(QImage(":/images/bg.png")));
     setCentralWidget(view);
-}
 
-// ADD DESC
-void MainWindow::StartButton_Clicked()
-{
+
+
+
     mainship *ship = new mainship();
     ship->setTransformOriginPoint(12.5,12.5);
     ship->setRect(0,0,25,25); // change the rect size

@@ -14,6 +14,7 @@ public:
 
 private:
     Scene *scene;// the uh... scene
+    Scene *intro;
 
 public slots:
    void StartButton_Clicked();
