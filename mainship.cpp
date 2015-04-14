@@ -62,6 +62,14 @@ void mainship::keyPressEvent(QKeyEvent *event)
     }
     else if (event->key() == Qt::Key_W)
     {
+        //  Quick Suggestion by Julian:
+        //  we should use a while loop here. While the key is pressed,
+        //  increase by 1.0f and set a max speed so we're not all
+        //  Portal over here where you constantly build up speed.
+        //  If the button is released, you slow overtime, but not by
+        //  too much since 0 gravity dictates constant rates of motion
+        //  due to lack of friction in space.
+
         // for momentum conservation
         // add curAngle to momentumAngle and speed for accurate momentum
         fields.addXSpeed(1.0f, curAngle);
