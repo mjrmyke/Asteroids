@@ -21,7 +21,12 @@ void updatePos::setXSpeed(float value)
     xSpeed = value;
 }
 
-void updatePos::setXSpeed(float speedConst, float angle)
+void updatePos::addXSpeed(float value)
+{
+    xSpeed += value;
+}
+
+void updatePos::addXSpeed(float speedConst, float angle)
 {
     xSpeed = xSpeed+speedConst*cos(M_PI/180*angle);
 }
@@ -36,7 +41,12 @@ void updatePos::setYSpeed(float value)
     ySpeed = value;
 }
 
-void updatePos::setYSpeed(float speedConst, float angle)
+void updatePos::addYSpeed(float value)
+{
+    ySpeed += value;
+}
+
+void updatePos::addYSpeed(float speedConst, float angle)
 {
     ySpeed = ySpeed+speedConst*sin(M_PI/180*angle);
 }

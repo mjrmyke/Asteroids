@@ -45,8 +45,8 @@ void MainWindow::StartButton_Clicked()
 
     mainship *ship = new mainship();
     ship->setTransformOriginPoint(12.5,12.5);
-    ship->setRect(0,0,25,25); // change the rect size
-    ship->setPen(QPen(Qt::red, 5));
+    ship->setRect(0,0,15,15); // change the rect size
+    ship->setPen(QPen(Qt::red, 2));
     QPainter::SmoothPixmapTransform;
     ship->setPos(width()/2,height()/2);
 

@@ -32,7 +32,7 @@ void mainship::timerEvent(QTimerEvent *event)
 // ADD DESC
 void mainship::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Left)
+    if (event->key() == Qt::Key_A)
     {
         QTransform itTransf = transform();
         QPointF dp = this->boundingRect().center();
@@ -46,7 +46,7 @@ void mainship::keyPressEvent(QKeyEvent *event)
         itTransf.translate( -dp.x(), -dp.y() );
         setTransform(itTransf);
     }
-    else if (event->key() == Qt::Key_Right)
+    else if (event->key() == Qt::Key_D)
     {
         QTransform itTransf = transform();
         QPointF dp = this->boundingRect().center();
@@ -60,22 +60,47 @@ void mainship::keyPressEvent(QKeyEvent *event)
         itTransf.translate( -dp.x(), -dp.y() );
         setTransform(itTransf);
     }
-    else if (event->key() == Qt::Key_Up)
+    else if (event->key() == Qt::Key_W)
     {
         // for momentum conservation
         // add curAngle to momentumAngle and speed for accurate momentum
-        fields.setXSpeed(1, curAngle);
-        fields.setYSpeed(1, curAngle);
+        fields.addXSpeed(1.0f, curAngle);
+        fields.addYSpeed(1.0f, curAngle);
         // for right now
         //setPos(x()+4*qCos(curAngle*3.14/180), y()+4*qSin(curAngle*3.14/180));
     }
-    else if (event->key() == Qt::Key_Down)
+    else if (event->key() == Qt::Key_S)
     {
         // for momentum conservation
-        fields.setXSpeed(-0.5, curAngle);
-        fields.setYSpeed(-0.5, curAngle);
+        fields.addXSpeed(-0.5f, curAngle);
+        fields.addYSpeed(-0.5f, curAngle);
         // for right now
         //setPos(x()-2*qCos(curAngle*3.14/180), y()-2*qSin(curAngle*3.14/180));
+    }
+    else if (event->key() == Qt::Key_Q)
+    {
+        // for momentum conservation
+        if(fields.getXSpeed() > 0.1f)
+        {
+            fields.addXSpeed(-0.1f);
+        }
+        else if(fields.getXSpeed() < -0.1f)
+        {
+            fields.addXSpeed(0.1f);
+        }
+        if(fields.getYSpeed() > 0.1f)
+        {
+            fields.addYSpeed(-0.1f);
+        }
+        else if(fields.getYSpeed() < -0.1f)
+        {
+            fields.addYSpeed(0.1f);
+        }
+        else
+        {
+            fields.setXSpeed(0.0f);
+            fields.setYSpeed(0.0f);
+        }
     }
     else if (event->key() == Qt::Key_Space)
     {
