@@ -17,13 +17,15 @@ SOURCES += main.cpp\
     scene.cpp \
     mainship.cpp \
     bullet.cpp \
-    updatepos.cpp
+    updatepos.cpp \
+    asteroids.cpp
 
 HEADERS  += mainwindow.h \
     scene.h \
     mainship.h \
     bullet.h \
-    updatepos.h
+    updatepos.h \
+    asteroids.h
 
 RESOURCES += \
     resources.qrc

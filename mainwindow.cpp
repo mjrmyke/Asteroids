@@ -2,6 +2,7 @@
 #include "scene.h"
 #include "mainship.h"
 #include "bullet.h"
+#include "asteroids.h"
 
 #include <QMenuBar>
 #include <QGraphicsView>
@@ -54,4 +55,16 @@ void MainWindow::StartButton_Clicked()
     ship->setFocus();
 
     scene->addItem(ship);
+
+    asteroids *ast = new asteroids();
+    ast->setTransformOriginPoint(50,50);
+    ast->setRect(0,-250,50,50); // change the rect size
+    ast->setPen(QPen(Qt::white, 1));
+    QPainter::SmoothPixmapTransform;
+    ast->setPos(width()/2,height()/2);
+
+    ast->setFlag(QGraphicsItem::ItemIsFocusable);
+    ast->setFocus();
+
+    scene->addItem(ast);
 }
