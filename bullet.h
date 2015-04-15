@@ -15,6 +15,7 @@ class Bullet: public QObject, public QGraphicsRectItem
 
 private:
     QBasicTimer timer;
+    QBasicTimer timeout;
     float angle;
     float initSpeedX;
     float initSpeedY;
@@ -28,6 +29,7 @@ public:
 
 public slots:
     void move();
+    void despawn();
 
 };
 

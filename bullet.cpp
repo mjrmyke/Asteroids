@@ -49,6 +49,8 @@ Bullet::Bullet(float angle, float speedX, float speedY)
 
     // start the timer. 16.67ms = 60FPS
     timer.start(16.67, this);
+    // start the despawn timer (3 seconds).
+    timeout.start(3000, this);
 }
 
 // Fires whenever the timer fires.
@@ -58,6 +60,10 @@ void Bullet::timerEvent(QTimerEvent *event)
     {
         move();
     }
+    if (event->timerId() == timeout.timerId())
+    {
+        despawn();
+    }
 }
 
 // Updates the bullets position.
@@ -66,8 +72,20 @@ void Bullet::move()
     // move bullet
     setPos(x()+abs(initSpeedX)+(5*qCos(angle*(M_PI/180))),
            y()+abs(initSpeedY)+(5*qSin(angle*(M_PI/180))));
-    if (pos().y() < 0)
-    {
-        delete this;
-    }
+    // screen looping
+    if(x() > 800)
+        setPos( x() - 800, y());
+    else if(x() < 0)
+        setPos( x() + 800, y());
+
+    if(y() > 600)
+        setPos( x(),  y() - 600);
+    else if(y() < 0)
+        setPos( x(), y() + 600);
+}
+
+// Despawns the bullet when its time has come.
+void Bullet::despawn()
+{
+    delete this;
 }
