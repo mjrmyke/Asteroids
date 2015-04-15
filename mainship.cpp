@@ -5,7 +5,7 @@ mainship::mainship()
 {
     curAngle = 0;
 
-    timer.start(16.67, this);
+    timer.start(17, this);
 
     /* WHY THE HELL WON'T THIS WORK!?
     QTimer * timer2 = new QTimer();
@@ -114,7 +114,7 @@ void mainship::keyPressEvent(QKeyEvent *event)
         {
             fields.addYSpeed(0.2f);
         }
-        else if(abs(fields.getXSpeed()) < 0.2f and abs(fields.getYSpeed()) < 0.2f)
+        else if(std::abs(fields.getXSpeed()) < 0.2f and std::abs(fields.getYSpeed()) < 0.2f)
         {
             fields.setXSpeed(0.0f);
             fields.setYSpeed(0.0f);
