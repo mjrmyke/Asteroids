@@ -18,6 +18,16 @@ mainship::mainship()
 void mainship::move()
 {
     setPos(x()+fields.getXSpeed(), y()+fields.getYSpeed());
+    //realize the ship move from one side to the other
+    if(x() > 800)
+        setPos( x() - 800, y());
+    else if(x() < 0)
+        setPos( x() + 800, y());
+
+    if(y() > 600)
+        setPos( x(),  y() - 600);
+    else if(y() < 0)
+        setPos( x(), y() + 600);
 }
 
 // Fires whenever the timer fires.
@@ -32,17 +42,6 @@ void mainship::timerEvent(QTimerEvent *event)
 // ADD DESC
 void mainship::keyPressEvent(QKeyEvent *event)
 {
-    //realize the ship move from one side to the other
-    if(x() > 800)
-        setPos( x() - 800, 600 - y());
-    else if(x() < 0)
-        setPos( x() + 800, 600 - y());
-
-    if(y() > 600)
-        setPos( 800 - x(),  y() - 600);
-    else if(y() < 0)
-        setPos( 800 - x(), y() + 600);
-    
     if (event->key() == Qt::Key_A)
     {
         QTransform itTransf = transform();
