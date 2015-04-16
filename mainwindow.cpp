@@ -25,10 +25,11 @@ MainWindow::MainWindow():QMainWindow()
     view->setFrameStyle(0);
     view->setSceneRect(0,0,800,600);
     view->setBackgroundBrush(QBrush(QImage(":/images/intro.png")));
+
     setCentralWidget(view);
 
     //Intro Music
-    QMediaPlayer * music = new QMediaPlayer();
+    music = new QMediaPlayer();
     music->setMedia(QUrl("qrc:/sounds/intromusic.mp3"));
     music->play();
 
@@ -37,9 +38,17 @@ MainWindow::MainWindow():QMainWindow()
 // ADD DESC
 void MainWindow::StartButton_Clicked()
 {
+
+
     // create game scene and initialize game
     game = new Scene();
     game->setStickyFocus(true);// player cannot deselect ship
+    music->stop();
+
+
+    music->setMedia(QUrl("qrc:/sounds/gamemusic.mp3"));
+    music->play();
+
 
     view->setScene(game);
     view->setBackgroundBrush(QBrush(QImage(":/images/bg.png")));
