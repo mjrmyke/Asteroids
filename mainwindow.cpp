@@ -3,8 +3,9 @@
 #include "mainship.h"
 #include "bullet.h"
 #include "asteroid.h"
-
+#include <QMediaPlayer>
 #include <QMenuBar>
+
 
 // ADD DESC
 MainWindow::MainWindow():QMainWindow()
@@ -24,8 +25,13 @@ MainWindow::MainWindow():QMainWindow()
     view->setFrameStyle(0);
     view->setSceneRect(0,0,800,600);
     view->setBackgroundBrush(QBrush(QImage(":/images/intro.png")));
-
     setCentralWidget(view);
+
+    //Intro Music
+    QMediaPlayer * music = new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/sounds/intromusic.mp3"));
+    music->play();
+
 }
 
 // ADD DESC

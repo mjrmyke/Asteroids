@@ -4,4 +4,7 @@
         <file>intro.png</file>
         <file>ship.png</file>
     </qresource>
+    <qresource prefix="/sounds">
+        <file>intromusic.mp3</file>
+    </qresource>
 </RCC>
