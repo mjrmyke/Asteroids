@@ -46,6 +46,8 @@ Bullet::Bullet(float angle, float speedX, float speedY)
     // sets initial speeds
     this->initSpeedX = speedX;
     this->initSpeedY = speedY;
+    // put bullet under all objects
+    setZValue(-1);
 
     // start the timer. 16.67ms = 60FPS
     timer.start(16.67, this);
@@ -73,15 +75,15 @@ void Bullet::move()
     setPos( x() + initSpeedX/2 + (20*qCos(angle*(M_PI/180) )) ,
             y() + initSpeedY/2 + (20*qSin(angle*(M_PI/180) )) );
     // screen looping
-    if(x() > 800)
-        setPos( x() - 800, y());
+    if(x() > 960)
+        setPos( x() - 960, y());
     else if(x() < 0)
-        setPos( x() + 800, y());
+        setPos( x() + 960, y());
 
-    if(y() > 600)
-        setPos( x(),  y() - 600);
+    if(y() > 720)
+        setPos( x(),  y() - 720);
     else if(y() < 0)
-        setPos( x(), y() + 600);
+        setPos( x(), y() + 720);
 }
 
 // Despawns the bullet when its time has come.

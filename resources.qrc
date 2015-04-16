@@ -1,8 +1,8 @@
 <RCC>
     <qresource prefix="/images">
+        <file>ship.png</file>
         <file>bg.png</file>
         <file>intro.png</file>
-        <file>ship.png</file>
     </qresource>
     <qresource prefix="/sounds">
         <file>intromusic.mp3</file>

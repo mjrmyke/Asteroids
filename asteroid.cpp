@@ -84,13 +84,13 @@ void Asteroid::move()
         delete this;
     }
     // screen looping
-    if(x() > 800)
-        setPos( x() - 800, y());
+    if(x() > 960)
+        setPos( x() - 960, y());
     else if(x() < 0)
-        setPos( x() + 800, y());
+        setPos( x() + 960, y());
 
-    if(y() > 600)
-        setPos( x(),  y() - 600);
+    if(y() > 720)
+        setPos( x(),  y() - 720);
     else if(y() < 0)
-        setPos( x(), y() + 600);
+        setPos( x(), y() + 720);
 }

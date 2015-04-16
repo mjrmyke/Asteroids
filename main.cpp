@@ -6,6 +6,7 @@
  * Bert Ouyang
  * Jheovanny Camacho
  * Israel Ruvalcaba
+ * Julian Coleman
  */
 
 #include "mainwindow.h"
@@ -19,7 +20,7 @@ int main(int argc, char *argv[])
 
   // create application main window & enter main event loop
   MainWindow window;
-  window.setFixedSize(800,625);
+  window.setFixedSize(960,745);
   window.show();
   return app.exec();
 }

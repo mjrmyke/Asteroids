@@ -23,7 +23,7 @@ MainWindow::MainWindow():QMainWindow()
     view->setScene(intro);
     view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     view->setFrameStyle(0);
-    view->setSceneRect(0,0,800,600);
+    view->setSceneRect(0,0,960,720);
     view->setBackgroundBrush(QBrush(QImage(":/images/intro.png")));
 
     setCentralWidget(view);
