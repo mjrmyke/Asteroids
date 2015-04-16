@@ -34,7 +34,7 @@ Asteroid::Asteroid()
     QTransform itTransf = transform();
     QPointF dp = this->boundingRect().center();
     itTransf.translate( dp.x(), dp.y() );
-    itTransf.rotate( angle, Qt::ZAxis );
+    //itTransf.rotate( angle, Qt::ZAxis );
     itTransf *= QTransform::fromScale( scale(), scale() );
     itTransf.translate( -dp.x(), -dp.y() );
     setTransform(itTransf);
@@ -76,7 +76,8 @@ void Asteroid::timerEvent(QTimerEvent *event)
 void Asteroid::move()
 {
     // move asteroid
-    setPos(x()+(1*qCos(angle*(M_PI/180))), y()+(1*qSin(angle*(M_PI/180))));
+    // MANUALLY SET TO 0 DEGREES FOR TIME BEING
+    setPos(x()+(1*qCos(0*(M_PI/180))), y()+(1*qSin(0*(M_PI/180))));
     if (pos().y() < 0)
     {
         delete this;

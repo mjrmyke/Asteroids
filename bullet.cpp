@@ -49,8 +49,8 @@ Bullet::Bullet(float angle, float speedX, float speedY)
 
     // start the timer. 16.67ms = 60FPS
     timer.start(16.67, this);
-    // start the despawn timer (3 seconds).
-    timeout.start(3000, this);
+    // start the despawn timer (0.7 seconds).
+    timeout.start(700, this);
 }
 
 // Fires whenever the timer fires.

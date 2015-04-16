@@ -8,12 +8,11 @@ class Scene;
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
-
 public:
     MainWindow();// constructor
 
 private:
+    Q_OBJECT
     QGraphicsView *view;
     Scene *game;// Game area
     Scene *intro;// empty area for intro
