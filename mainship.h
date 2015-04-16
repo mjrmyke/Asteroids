@@ -21,7 +21,7 @@
 #include <QBasicTimer>
 #include <QTimerEvent>
 
-class mainship: public QObject, public QGraphicsRectItem
+class mainship: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 

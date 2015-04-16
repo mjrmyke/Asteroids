@@ -2,5 +2,6 @@
     <qresource prefix="/images">
         <file>bg.png</file>
         <file>intro.png</file>
+        <file>ship.png</file>
     </qresource>
 </RCC>

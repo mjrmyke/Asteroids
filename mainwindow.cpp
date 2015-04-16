@@ -42,8 +42,9 @@ void MainWindow::StartButton_Clicked()
     //spawn player (ship)
     mainship *ship = new mainship();
     ship->setTransformOriginPoint(7.5,7.5);
-    ship->setRect(0,0,15,15); // change the rect size
-    ship->setPen(QPen(Qt::red, 2));
+    ship->setPixmap(QPixmap(":/images/ship.png"));
+//    ship->setRect(0,0,15,15); // change the rect size
+//    ship->setPen(QPen(Qt::red, 2));
     ship->setPos(width()/2,height()/2);
     ship->setFlag(QGraphicsItem::ItemIsFocusable);
 

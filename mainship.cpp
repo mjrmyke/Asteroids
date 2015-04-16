@@ -114,7 +114,7 @@ void mainship::keyPressEvent(QKeyEvent *event)
         {
             fields.addYSpeed(0.2f);
         }
-        else if(std::abs(fields.getXSpeed()) < 0.2f and std::abs(fields.getYSpeed()) < 0.2f)
+        else if(std::abs(fields.getXSpeed()) < 0.2f && std::abs(fields.getYSpeed()) < 0.2f)
         {
             fields.setXSpeed(0.0f);
             fields.setYSpeed(0.0f);
