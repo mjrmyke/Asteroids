@@ -43,11 +43,11 @@ void MainWindow::StartButton_Clicked()
     // create game scene and initialize game
     game = new Scene();
     game->setStickyFocus(true);// player cannot deselect ship
-    music->stop();
+    music->stop();  //stops old music (intro or game)
 
 
-    music->setMedia(QUrl("qrc:/sounds/gamemusic.mp3"));
-    music->play();
+    music->setMedia(QUrl("qrc:/sounds/gamemusic.mp3")); //sets game music, in the case it came from the intro
+    music->play();  //plays music
 
 
     view->setScene(game);
@@ -56,7 +56,7 @@ void MainWindow::StartButton_Clicked()
 
     //spawn player (ship)
     mainship *ship = new mainship();
-    ship->setTransformOriginPoint(7.5,7.5);
+    ship->setTransformOriginPoint(30,20);
     ship->setPixmap(QPixmap(":/images/ship.png"));
 //    ship->setRect(0,0,15,15); // change the rect size
 //    ship->setPen(QPen(Qt::red, 2));

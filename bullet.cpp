@@ -30,7 +30,7 @@ Bullet::Bullet()
 Bullet::Bullet(float angle, float speedX, float speedY)
 {
     // What do the 10 and 12.55 do?
-    setRect((10*qCos(angle*(M_PI/180))), (12.55*qSin(angle*(M_PI/180))),5,1);
+    setRect((qCos(angle*(M_PI/180))+30), ((qSin(angle*(M_PI/180)))+20),5,1);
     setPen(QPen(Qt::green, 1));
 
     // rotates bullet

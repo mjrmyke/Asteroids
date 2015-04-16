@@ -3,7 +3,7 @@
 // ADD DESC
 mainship::mainship()
 {
-    curAngle = 0;
+    curAngle = 270;
 
     timer.start(17, this);
 
@@ -87,6 +87,7 @@ void mainship::keyPressEvent(QKeyEvent *event)
         // for right now
         //setPos(x()+4*qCos(curAngle*3.14/180), y()+4*qSin(curAngle*3.14/180));
     }
+
     else if (event->key() == Qt::Key_S)
     {
         // for momentum conservation
