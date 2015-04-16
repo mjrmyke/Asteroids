@@ -1,7 +1,7 @@
-#include "asteroids.h"
+#include "asteroid.h"
 
 // Default constructor
-asteroids::asteroids()
+Asteroid::Asteroid()
 {
 
 
@@ -43,7 +43,7 @@ asteroids::asteroids()
     timer.start(16.67, this);
 }
 
-asteroids::asteroids(float angle)
+Asteroid::Asteroid(float angle)
 {
     // What do the 10 and 12.55 do?
     setRect((10*qCos(angle*(M_PI/180))), (12.55*qSin(angle*(M_PI/180))),3,1);
@@ -64,7 +64,7 @@ asteroids::asteroids(float angle)
 }
 
 // Fires whenever the timer fires.
-void asteroids::timerEvent(QTimerEvent *event)
+void Asteroid::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timer.timerId())
     {
@@ -72,8 +72,8 @@ void asteroids::timerEvent(QTimerEvent *event)
     }
 }
 
-// Updates the asteroids position
-void asteroids::move()
+// Updates the Asteroid position
+void Asteroid::move()
 {
     // move asteroid
     setPos(x()+(1*qCos(angle*(M_PI/180))), y()+(1*qSin(angle*(M_PI/180))));

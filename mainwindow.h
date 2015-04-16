@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsView>
 
 class Scene;
 
@@ -13,8 +14,9 @@ public:
     MainWindow();// constructor
 
 private:
-    Scene *scene;// the uh... scene
-    Scene *intro;
+    QGraphicsView *view;
+    Scene *game;// Game area
+    Scene *intro;// empty area for intro
 
 public slots:
    void StartButton_Clicked();

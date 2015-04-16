@@ -1,5 +1,5 @@
-#ifndef ASTEROIDS_H
-#define ASTEROIDS_H
+#ifndef Asteroid_H
+#define Asteroid_H
 
 #include <QGraphicsRectItem>
 #include <QObject>
@@ -9,7 +9,7 @@
 #include <QtMath>
 #include <cmath>
 
-class asteroids: public QObject, public QGraphicsRectItem
+class Asteroid: public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 
@@ -21,12 +21,12 @@ protected:
     void timerEvent(QTimerEvent *event);
 
 public:
-    asteroids();
-    asteroids(float angle);
+    Asteroid();
+    Asteroid(float angle);
 
 public slots:
     void move();
 
 };
 
-#endif // ASTEROIDS_H
+#endif // Asteroid_H

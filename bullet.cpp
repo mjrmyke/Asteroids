@@ -6,7 +6,7 @@ Bullet::Bullet()
     // draw the rect
 
     // size and position
-    setRect((10*qCos(angle*(M_PI/180))),(12.55*qSin(angle*(M_PI/180))),5,5);
+    setRect((10*qCos(angle*(M_PI/180))),(12.55*qSin(angle*(M_PI/180))),5,1);
     setPen(QPen(Qt::green, 1));
 
     QTransform itTransf = transform();
@@ -70,8 +70,8 @@ void Bullet::timerEvent(QTimerEvent *event)
 void Bullet::move()
 {
     // move bullet
-    setPos(x()+abs(initSpeedX)+(5*qCos(angle*(M_PI/180))),
-           y()+abs(initSpeedY)+(5*qSin(angle*(M_PI/180))));
+    setPos( x() + initSpeedX/2 + (20*qCos(angle*(M_PI/180) )) ,
+            y() + initSpeedY/2 + (20*qSin(angle*(M_PI/180) )) );
     // screen looping
     if(x() > 800)
         setPos( x() - 800, y());

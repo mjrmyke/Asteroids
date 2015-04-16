@@ -2,10 +2,12 @@
 #include "scene.h"
 #include "mainship.h"
 #include "bullet.h"
-#include "asteroids.h"
+#include "asteroid.h"
 
 #include <QMenuBar>
 #include <QGraphicsView>
+
+#include <iostream>
 
 // ADD DESC
 MainWindow::MainWindow():QMainWindow()
@@ -18,34 +20,43 @@ MainWindow::MainWindow():QMainWindow()
 
 
     intro = new Scene();
-    QGraphicsView *IntroView = new QGraphicsView(intro);
+    /*QGraphicsView *IntroView = new QGraphicsView(intro);
     IntroView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     IntroView->setFrameStyle(0);
     IntroView->setSceneRect(0,0,800,600);
     IntroView->setBackgroundBrush(QBrush(QImage(":/images/intro.png")));
-    setCentralWidget(IntroView);
+    setCentralWidget(IntroView);*/
 
+
+    view->setScene(intro);
+    view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    view->setFrameStyle(0);
+    view->setSceneRect(0,0,800,600);
+    view->setBackgroundBrush(QBrush(QImage(":/images/intro.png")));
+    setCentralWidget(view);
 }
 
 // ADD DESC
 void MainWindow::StartButton_Clicked()
 {
+    // create game scene and initialize game
+    game = new Scene();
 
 
-    // create scene and central widget view of scene
-    scene = new Scene();
-    QGraphicsView *view = new QGraphicsView(scene);
+    /*QGraphicsView *view = new QGraphicsView(scene);
     view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     view->setFrameStyle(0);
     view->setSceneRect(0,0,800,600);
     view->setBackgroundBrush(QBrush(QImage(":/images/bg.png")));
-    setCentralWidget(view);
+    setCentralWidget(view);*/
 
 
+    view->setScene(game);
+    view->setBackgroundBrush(QBrush(QImage(":/images/bg.png")));
 
 
     mainship *ship = new mainship();
-    ship->setTransformOriginPoint(12.5,12.5);
+    ship->setTransformOriginPoint(7.5,7.5);
     ship->setRect(0,0,15,15); // change the rect size
     ship->setPen(QPen(Qt::red, 2));
     QPainter::SmoothPixmapTransform;
@@ -53,18 +64,23 @@ void MainWindow::StartButton_Clicked()
 
     ship->setFlag(QGraphicsItem::ItemIsFocusable);
     ship->setFocus();
+    game->addItem(ship);
 
-    scene->addItem(ship);
+    game->setFocusItem(ship);
 
-    asteroids *ast = new asteroids();
-    ast->setTransformOriginPoint(50,50);
-    ast->setRect(0,-250,50,50); // change the rect size
+    //view->setVisible(true);
+    //std::cout<<scene->isActive()<<std::endl;
+    //std::cout<<scene->hasFocus()<<std::endl;
+
+    //game->setFocusItem(ship);
+
+
+    Asteroid *ast = new Asteroid();
+    ast->setTransformOriginPoint(25,25);
+    ast->setRect(0,0,50,50); // change the rect size
     ast->setPen(QPen(Qt::white, 1));
     QPainter::SmoothPixmapTransform;
-    ast->setPos(width()/2,height()/2);
+    ast->setPos(width()/4,height()/4);
 
-    ast->setFlag(QGraphicsItem::ItemIsFocusable);
-    ast->setFocus();
-
-    scene->addItem(ast);
+    game->addItem(ast);
 }
