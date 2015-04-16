@@ -4,6 +4,7 @@
 Asteroid::Asteroid()
 {
 
+    // TRY QGraphicsItem
 
 /*
     QPainter painter(this);
