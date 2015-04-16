@@ -62,6 +62,8 @@ void MainWindow::StartButton_Clicked()
 //    ship->setPen(QPen(Qt::red, 2));
     ship->setPos(width()/2,height()/2);
     ship->setFlag(QGraphicsItem::ItemIsFocusable);
+    ship->setTransformationMode(Qt::SmoothTransformation);
+
 
     game->addItem(ship);
     ship->setFocus();
