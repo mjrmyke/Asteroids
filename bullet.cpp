@@ -74,6 +74,7 @@ void Bullet::move()
     // move bullet
     setPos( x() + initSpeedX/2 + (20*qCos(angle*(M_PI/180) )) ,
             y() + initSpeedY/2 + (20*qSin(angle*(M_PI/180) )) );
+
     // screen looping
     if(x() > 960)
         setPos( x() - 960, y());
@@ -84,6 +85,22 @@ void Bullet::move()
         setPos( x(),  y() - 720);
     else if(y() < 0)
         setPos( x(), y() + 720);
+
+    // collision detection
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+    for (int i = 0, n = colliding_items.size(); i < n; ++i)
+    {
+        if (typeid(*(colliding_items[i])) == typeid(Asteroid))
+        {
+            // remove them both
+            this->scene()->removeItem(colliding_items[i]);
+            this->scene()->removeItem(this);
+            // delete them both
+            delete colliding_items[i];
+            delete this;
+            return;
+        }
+    }
 }
 
 // Despawns the bullet when its time has come.

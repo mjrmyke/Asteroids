@@ -8,6 +8,10 @@
 #include <QPainter>
 #include <QtMath>
 #include <cmath>
+#include <QList>
+#include <typeinfo>
+#include <QGraphicsScene>
+#include "asteroid.h"
 
 class Bullet: public QObject, public QGraphicsRectItem
 {

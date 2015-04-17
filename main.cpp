@@ -7,6 +7,7 @@
  * Jheovanny Camacho
  * Israel Ruvalcaba
  * Julian Coleman
+ * Tatiana Duarte
  */
 
 #include "mainwindow.h"
