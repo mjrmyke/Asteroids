@@ -88,17 +88,16 @@ void Bullet::move()
 
     // collision detection
     QList<QGraphicsItem *> colliding_items = collidingItems();
-    for (int i = 0, n = colliding_items.size(); i < n; ++i)
+    for (int i=0, n=colliding_items.size(); i<n; ++i)
     {
         if (typeid(*(colliding_items[i])) == typeid(Asteroid))
         {
-            // remove them both
-            this->scene()->removeItem(colliding_items[i]);
+            // remove them bothS
             this->scene()->removeItem(this);
             // delete them both
-            delete colliding_items[i];
+            dynamic_cast<Asteroid *>(colliding_items[i])->setHealth(
+                        dynamic_cast<Asteroid *>(colliding_items[i])->getHealth() - 2);
             delete this;
-            return;
         }
     }
 }

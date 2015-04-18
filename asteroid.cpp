@@ -40,6 +40,8 @@ Asteroid::Asteroid()
     itTransf.translate( -dp.x(), -dp.y() );
     setTransform(itTransf);
 
+    health = 10;
+
     // updates at 60FPS
     timer.start(16.67, this);
 }
@@ -60,11 +62,23 @@ Asteroid::Asteroid(float angle)
     itTransf.translate( -dp.x(), -dp.y() );
     setTransform(itTransf);
 
+    health = 10;
+
     // start the timer. 16.67ms = 60FPS
     timer.start(16.67, this);
 }
 
 // Fires whenever the timer fires.
+
+int Asteroid::getHealth() const
+{
+    return health;
+}
+
+void Asteroid::setHealth(int value)
+{
+    health = value;
+}
 void Asteroid::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timer.timerId())
@@ -93,4 +107,9 @@ void Asteroid::move()
         setPos( x(),  y() - 720);
     else if(y() < 0)
         setPos( x(), y() + 720);
+
+    if(health <= 0)
+    {
+        delete this;
+    }
 }

@@ -14,6 +14,7 @@ class Asteroid: public QObject, public QGraphicsRectItem
     Q_OBJECT
 
 private:
+    int health;
     QBasicTimer timer;
     float angle;
 
@@ -23,6 +24,9 @@ protected:
 public:
     Asteroid();
     Asteroid(float angle);
+
+    int getHealth() const;
+    void setHealth(int value);
 
 public slots:
     void move();
