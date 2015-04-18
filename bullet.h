@@ -18,21 +18,30 @@ class Bullet: public QObject, public QGraphicsRectItem
     Q_OBJECT
 
 private:
+    // Frame timer.
     QBasicTimer timer;
+    // Despawn timer.
     QBasicTimer timeout;
+    // Local angle container.
     float angle;
+    // Initial speed containers.
     float initSpeedX;
     float initSpeedY;
 
 protected:
+    // Fires whenever the timers fire.
     void timerEvent(QTimerEvent *event);
 
 public:
+    // Default constructor.
     Bullet();
+    // Constructs with an angle and speed to enable realistic bullet firing.
     Bullet(float angle, float speedX, float speedY);
 
 public slots:
-    void move();
+    // Handles what the bullet should do every frame.
+    void update();
+    // Deletes bullet when its time has come.
     void despawn();
 
 };

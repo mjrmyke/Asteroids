@@ -19,21 +19,17 @@ Bullet::Bullet()
 
     // updates at 60FPS
     timer.start(16.67, this);
-
-    // this broke for some reason
-    /*QTimer * timer = new QTimer();
-    connect(timer,SIGNAL(timeout()),this,SLOT(move()));
-    timer->start(16.67);// 60FPS babyy.*/
 }
+
 
 // Constructs with an angle and speed to enable realistic bullet firing.
 Bullet::Bullet(float angle, float speedX, float speedY)
 {
-    // What do the 10 and 12.55 do?
-    setRect((qCos(angle*(M_PI/180))+30), ((qSin(angle*(M_PI/180)))+20),5,1);
+    // spawn bullet in middle of ship, then draw
+    setRect((qCos(angle*(M_PI/180))+30), ((qSin(angle*(M_PI/180)))+20),7,1);
     setPen(QPen(Qt::green, 1));
 
-    // rotates bullet
+    // rotates bullet relative to ship's position
     this->angle = angle;
     QTransform itTransf = transform();
     QPointF dp = this->boundingRect().center();
@@ -43,7 +39,7 @@ Bullet::Bullet(float angle, float speedX, float speedY)
     itTransf.translate( -dp.x(), -dp.y() );
     setTransform(itTransf);
 
-    // sets initial speeds
+    // set initial speeds
     this->initSpeedX = speedX;
     this->initSpeedY = speedY;
     // put bullet under all objects
@@ -55,12 +51,13 @@ Bullet::Bullet(float angle, float speedX, float speedY)
     timeout.start(700, this);
 }
 
-// Fires whenever the timer fires.
+
+// Fires whenever the timers fire.
 void Bullet::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timer.timerId())
     {
-        move();
+        update();
     }
     if (event->timerId() == timeout.timerId())
     {
@@ -68,10 +65,11 @@ void Bullet::timerEvent(QTimerEvent *event)
     }
 }
 
-// Updates the bullets position.
-void Bullet::move()
+
+// Handles what the bullet every frame.
+void Bullet::update()
 {
-    // move bullet
+    // move bullet, adding ship velocity
     setPos( x() + initSpeedX/2 + (20*qCos(angle*(M_PI/180) )) ,
             y() + initSpeedY/2 + (20*qSin(angle*(M_PI/180) )) );
 
@@ -92,15 +90,17 @@ void Bullet::move()
     {
         if (typeid(*(colliding_items[i])) == typeid(Asteroid))
         {
-            // remove them bothS
+            // remove bullet from scene
             this->scene()->removeItem(this);
-            // delete them both
-            dynamic_cast<Asteroid *>(colliding_items[i])->setHealth(
-                        dynamic_cast<Asteroid *>(colliding_items[i])->getHealth() - 2);
+            // reduce asteroid health
+            static_cast<Asteroid *>(colliding_items[i])->setHealth(
+                        static_cast<Asteroid *>(colliding_items[i])->getHealth() - 2);
+            // delete bullet
             delete this;
         }
     }
 }
+
 
 // Despawns the bullet when its time has come.
 void Bullet::despawn()

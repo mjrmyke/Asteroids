@@ -4,28 +4,11 @@
 Asteroid::Asteroid()
 {
 
-    // TRY QGraphicsItem
+    /* maybe make 2 additional asteroid constructors for big, medium, and small to
+     * make stuff easier.*/
 
-/*
-    QPainter painter(this);
-
-    // make the polygon
-    QPolygon poly;
-    poly << QPoint(90,100);
-    poly << QPoint(24,60);
-    poly << QPoint(10,70);
-    poly << QPoint(50,110);
-
-    // make a pen
-    QPen linepen;
-    linepen.setWidth(8);
-    linepen.setColor(Qt::white);
-
-    painter.setPen(linepen);
-
-    // draw the polygon
-    painter.drawPolygon(poly);
-*/
+    /* Work on making big asteroids split into 2 medium ones and making medium
+     * asteroids split into 3 small ones, with appropriate health*/
 
 
     // size and position
