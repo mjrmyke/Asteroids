@@ -8,6 +8,7 @@
 #include <QPainter>
 #include <QtMath>
 #include <cmath>
+#include "updatepos.h"
 
 class Asteroid: public QObject, public QGraphicsRectItem
 {
@@ -15,16 +16,18 @@ class Asteroid: public QObject, public QGraphicsRectItem
 
 private:
     int health;
+    updatePos fields;
     QBasicTimer timer;
     float angle;
+    int size;
 
 protected:
     void timerEvent(QTimerEvent *event);
 
 public:
     Asteroid();
-    Asteroid(float angle);
-
+    Asteroid(int size);
+    void death();
     int getHealth() const;
     void setHealth(int value);
 

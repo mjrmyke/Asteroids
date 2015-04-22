@@ -5,14 +5,6 @@
 // Default constructor
 Asteroid::Asteroid()
 {
-
-    /* maybe make 2 additional asteroid constructors for big, medium, and small to
-     * make stuff easier.*/
-
-    /* Work on making big asteroids split into 2 medium ones and making medium
-     * asteroids split into 3 small ones, with appropriate health*/
-
-
     // size and position
     setRect((10*qCos(angle*(M_PI/180))),(12.55*qSin(angle*(M_PI/180))),5,5);
     setPen(QPen(Qt::white, 1));
@@ -106,7 +98,7 @@ void Asteroid::move()
         setPos( x(), y() + 720);
 
     // collision detection
-    /*QList<QGraphicsItem *> colliding_items = collidingItems();
+/*  QList<QGraphicsItem *> colliding_items = collidingItems();
     for (int i=0, n=colliding_items.size(); i<n; ++i)
     {
         if (typeid(*(colliding_items[i])) == typeid(Asteroid))

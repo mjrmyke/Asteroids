@@ -69,12 +69,18 @@ void MainWindow::StartButton_Clicked()
     ship->setFocus();
 
     // spawn asteroid
-    Asteroid *ast = new Asteroid();
+    Asteroid *ast3 = new Asteroid(3);
     //ast->setTransformOriginPoint(25,25);
-    ast->setRect(0,0,50,50); // change the rect size
-    ast->setPen(QPen(Qt::white, 1));
-    ast->setPos(width()/4,height()/4);
+    //ast->setRect(0,0,50,50); // change the rect size
+    //ast->setPen(QPen(Qt::white, 1));
+    ast3->setPos(width()/4,height()/4);
+    Asteroid *ast2 = new Asteroid(2);
+    ast2->setPos(width()/6,height()/6);
+    Asteroid *ast1 = new Asteroid(1);
+    ast1->setPos(width()/3,height()/3);
 
-    game->addItem(ast);
-    ast->setPos(width()/4,height()/4);
+    game->addItem(ast3);
+    game->addItem(ast2);
+    game->addItem(ast1);
+    //ast->setPos(width()/4,height()/4);
 }

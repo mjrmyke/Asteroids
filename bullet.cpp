@@ -93,12 +93,14 @@ void Bullet::update()
             // remove bullet from scene
             this->scene()->removeItem(this);
             // reduce asteroid health
-            static_cast<Asteroid *>(colliding_items[i])->setHealth(
-                        static_cast<Asteroid *>(colliding_items[i])->getHealth() - 2);
+            //static_cast<Asteroid *>(colliding_items[i])->setHealth(
+                        //static_cast<Asteroid *>(colliding_items[i])->getHealth() - 2);
+            static_cast<Asteroid *>(colliding_items[i])->setHealth(0);
             // delete bullet
             delete this;
         }
     }
+
 }
 
 
