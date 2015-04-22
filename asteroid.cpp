@@ -5,14 +5,6 @@
 // Default constructor
 Asteroid::Asteroid()
 {
-
-    /* maybe make 2 additional asteroid constructors for big, medium, and small to
-     * make stuff easier.*/
-
-    /* Work on making big asteroids split into 2 medium ones and making medium
-     * asteroids split into 3 small ones, with appropriate health*/
-
-
     // size and position
     setRect((10*qCos(angle*(M_PI/180))),(12.55*qSin(angle*(M_PI/180))),5,5);
     setPen(QPen(Qt::white, 1));
@@ -51,16 +43,16 @@ Asteroid::Asteroid(int size)
        setPen(QPen(Qt::white, 1));
 
        health = 5;
-     }
+    }
 
     if (size == 1)
-     {
+    {
        this->size = 1;
        setRect(0, 0, 15, 15);
        setPen(QPen(Qt::white, 1));
 
        health = 2;
-     }
+    }
 
     // start the timer. 16.67ms = 60FPS
     timer.start(16.67, this);
@@ -76,6 +68,7 @@ void Asteroid::setHealth(int value)
 {
     health = value;
 }
+
 void Asteroid::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timer.timerId())
@@ -105,19 +98,6 @@ void Asteroid::move()
     else if(y() < 0)
         setPos( x(), y() + 720);
 
-    // collision detection
-    /*QList<QGraphicsItem *> colliding_items = collidingItems();
-    for (int i=0, n=colliding_items.size(); i<n; ++i)
-    {
-        if (typeid(*(colliding_items[i])) == typeid(Asteroid))
-        {
-            // remove bullet from scene
-            this->scene()->removeItem(colliding_items[i]);
-            //reduce asteroid health
-            health-=2;
-        }
-    }
-*/
     if(health <= 0)
     {
         this->death();
@@ -125,7 +105,7 @@ void Asteroid::move()
     }
 }
 
-
+//the asteroids dire fate
 void Asteroid::death()
 {
     if (this->size == 3)
@@ -139,13 +119,11 @@ void Asteroid::death()
         mAsteroid2->fields.addYSpeed(1, 15);
         mAsteroid2->setPos(x(),y());
 
-
         scene()->addItem(mAsteroid1);
         scene()->addItem(mAsteroid2);
     }
 
-
-     else if (this->size == 2)
+    else if (this->size == 2)
     {
         Asteroid * sAsteroid1 = new Asteroid(1);
         sAsteroid1->fields.addXSpeed(1, 45);
@@ -159,7 +137,6 @@ void Asteroid::death()
         sAsteroid3->fields.addXSpeed(1, 80);
         sAsteroid3->fields.addYSpeed(1, 80);
         sAsteroid3->setPos(x(),y());
-
 
         scene()->addItem(sAsteroid1);
         scene()->addItem(sAsteroid2);

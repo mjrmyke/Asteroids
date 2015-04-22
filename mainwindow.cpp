@@ -38,8 +38,6 @@ MainWindow::MainWindow():QMainWindow()
 // ADD DESC
 void MainWindow::StartButton_Clicked()
 {
-
-
     // create game scene and initialize game
     game = new Scene();
     game->setStickyFocus(true);// player cannot deselect ship
@@ -58,21 +56,16 @@ void MainWindow::StartButton_Clicked()
     mainship *ship = new mainship();
     ship->setTransformOriginPoint(30,20);
     ship->setPixmap(QPixmap(":/images/ship.png"));
-//    ship->setRect(0,0,15,15); // change the rect size
-//    ship->setPen(QPen(Qt::red, 2));
     ship->setPos(width()/2,height()/2);
     ship->setFlag(QGraphicsItem::ItemIsFocusable);
     ship->setTransformationMode(Qt::SmoothTransformation);
 
-
     game->addItem(ship);
     ship->setFocus();
 
+
     // spawn asteroid
     Asteroid *ast3 = new Asteroid(3);
-    //ast->setTransformOriginPoint(25,25);
-    //ast->setRect(0,0,50,50); // change the rect size
-    //ast->setPen(QPen(Qt::white, 1));
     ast3->setPos(width()/4,height()/4);
     Asteroid *ast2 = new Asteroid(2);
     ast2->setPos(width()/6,height()/6);
@@ -82,5 +75,4 @@ void MainWindow::StartButton_Clicked()
     game->addItem(ast3);
     game->addItem(ast2);
     game->addItem(ast1);
-    //ast->setPos(width()/4,height()/4);
 }
