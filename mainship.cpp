@@ -5,6 +5,35 @@ mainship::mainship()
 {
     // face up
     curAngle = 270;
+    //  set the overheat and the canFire variables
+    overheated = false;
+    canFire = true;
+
+    //  heat iterator
+    heat = 0.0f;
+
+    // shields
+    shield = 6;
+
+    switch(shield) {
+        case 6:
+          break;
+        case 5:
+          break;
+        case 4:
+          break;
+        case 3:
+          break;
+        case 2:
+          break;
+        case 1:
+          break;
+        case 0:
+          break;
+        default:
+          break;
+    }
+
     // start timer (60 FPS)
     timer.start(17, this);
 }
@@ -115,9 +144,14 @@ void mainship::keys()
        {
            // BULLETS FIRE TOO FAST JULIAN! TOO FAST!
            // create a bullet
-           Bullet *bullet = new Bullet(curAngle, fields.getXSpeed(), fields.getYSpeed());
-           bullet->setPos(x(),y());
-           scene()->addItem(bullet);
+           if (canFire)
+           {
+               Bullet *bullet = new Bullet(curAngle, fields.getXSpeed(), fields.getYSpeed());
+               bullet->setPos(x(),y());
+               scene()->addItem(bullet);
+               fireRate.start(500, this);
+               canFire = false;
+           }
        }
 
        default:
@@ -139,6 +173,11 @@ void mainship::timerEvent(QTimerEvent *event)
         keys();
         // update position
         move();
+    }
+    if (event->timerId() == fireRate.timerId())
+    {
+        fireRate.stop();
+        canFire = true;
     }
 }
 

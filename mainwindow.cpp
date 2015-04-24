@@ -5,6 +5,7 @@
 #include "asteroid.h"
 #include <QMediaPlayer>
 #include <QMenuBar>
+#include <QBrush>
 
 
 // ADD DESC
@@ -50,7 +51,7 @@ void MainWindow::StartButton_Clicked()
 
     view->setScene(game);
     view->setBackgroundBrush(QBrush(QImage(":/images/bg.png")));
-
+    guiUpdater.start(17, this);
 
     //spawn player (ship)
     mainship *ship = new mainship();
@@ -59,10 +60,15 @@ void MainWindow::StartButton_Clicked()
     ship->setPos(width()/2,height()/2);
     ship->setFlag(QGraphicsItem::ItemIsFocusable);
     ship->setTransformationMode(Qt::SmoothTransformation);
-
     game->addItem(ship);
     ship->setFocus();
 
+    QGraphicsRectItem *shipShields = new QGraphicsRectItem();
+    shipShields->setRect(10, 20, width()/4, 10);
+    shipShields->setZValue(2);
+    shipShields->setBrush(QBrush(Qt::green));
+    shipShields->setOpacity(0.5);
+    game->addItem(shipShields);
 
     // spawn asteroids
     Asteroid *ast3 = new Asteroid(3);
@@ -75,4 +81,13 @@ void MainWindow::StartButton_Clicked()
     game->addItem(ast3);
     game->addItem(ast2);
     game->addItem(ast1);
+}
+
+
+void MainWindow::timerEvent(QTimerEvent *event)
+{
+    if (event->timerId() == guiUpdater.timerId())
+    {
+//        shipShields->
+    }
 }

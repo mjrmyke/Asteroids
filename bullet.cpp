@@ -74,15 +74,15 @@ void Bullet::update()
             y() + initSpeedY/2 + (20*qSin(angle*(M_PI/180) )) );
 
     // screen looping
-    if(x() > 960)
-        setPos( x() - 960, y());
-    else if(x() < 0)
-        setPos( x() + 960, y());
+//    if(x() > 960)
+//        setPos( x() - 960, y());
+//    else if(x() < 0)
+//        setPos( x() + 960, y());
 
-    if(y() > 720)
-        setPos( x(),  y() - 720);
-    else if(y() < 0)
-        setPos( x(), y() + 720);
+//    if(y() > 720)
+//        setPos( x(),  y() - 720);
+//    else if(y() < 0)
+//        setPos( x(), y() + 720);
 
     // collision detection
     QList<QGraphicsItem *> colliding_items = collidingItems();

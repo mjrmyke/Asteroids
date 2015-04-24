@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QGraphicsView>
 #include <QMediaPlayer>
+#include <QTimerEvent>
+#include <QBasicTimer>
 
 class Scene;
 
@@ -18,9 +20,13 @@ private:
     QGraphicsView *view;
     Scene *game;// Game area
     Scene *intro;// empty area for intro
+    QBasicTimer guiUpdater;
 
 public slots:
    void StartButton_Clicked();
+
+protected:
+   void timerEvent(QTimerEvent *event);
 
 };
 

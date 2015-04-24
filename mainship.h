@@ -33,10 +33,19 @@ private:
     float curAngle;
     // The ship's timer.
     QBasicTimer timer;
+    // Fire rate limiter for bullets
+    QBasicTimer fireRate;
     // Container for key presses, prevents duplicates.
     QSet<Qt::Key> keysPressed;
     // Handles key presses.
     void keys();
+    // error checking for fire limiter
+    bool overheated, canFire;
+    // fire ability bar data. from 0 to 1. If it's 1, it will kick overheated to 'true'. If it's true, heat will decrease by 0.1f
+    // and the player will not be able to fire until the heat = 0.
+    float heat;
+    // define the shields. should be a power up later, but we'll implement it now to make sure it works
+    int shield;
 
 public:
     // Default constructor.
