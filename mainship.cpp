@@ -1,24 +1,22 @@
 #include "mainship.h"
 
-// ADD DESC
+// Default constructor.
 mainship::mainship()
 {
+    // face up
     curAngle = 270;
-
+    // start timer (60 FPS)
     timer.start(17, this);
-
-    /* WHY THE HELL WON'T THIS WORK!?
-    QTimer * timer2 = new QTimer();
-    //QObject::connect(timer2,(SIGNAL(timeout()),this,SLOT(updatePos())));
-    QObject::connect(this, SIGNAL(timeout()), SLOT(updatePos()));
-    timer2->start(16.67);// 60FPS babyy.*/
 }
 
-// ADD DESC
+
+// Updates the ship's position and velocity
 void mainship::move()
 {
+    // move ship
     setPos(x()+fields.getXSpeed(), y()+fields.getYSpeed());
-    //realize the ship move from one side to the other
+
+    // screen looping
     if(x() > 960)
         setPos( x() - 960, y());
     else if(x() < 0)
@@ -30,102 +28,124 @@ void mainship::move()
         setPos( x(), y() + 720);
 }
 
+
 // Fires whenever the timer fires.
 void mainship::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timer.timerId())
     {
+        // handles key presses
+        foreach(Qt::Key k, keysPressed)
+        {
+           switch(k)
+           {
+           case Qt::Key_W:
+           {
+               // add curAngle to momentumAngle and speed for accurate momentum
+               fields.addXSpeed(0.2f, curAngle);
+               fields.addYSpeed(0.2f, curAngle);
+               break;
+           }
+
+           case Qt::Key_S:
+           {
+               // add curAngle to momentumAngle and speed for accurate momentum
+               fields.addXSpeed(-0.1f, curAngle);
+               fields.addYSpeed(-0.1f, curAngle);
+               break;
+           }
+
+           case Qt::Key_A:
+           {
+               QTransform itTransf = transform();
+               QPointF dp = this->boundingRect().center();
+               itTransf.translate( dp.x(), dp.y() );
+               itTransf.rotate( rotation()-5, Qt::ZAxis );
+               curAngle -= 5;// store rotation values
+               // ensure 0<=curAngle<360
+               if(curAngle >= 360){curAngle = 360%static_cast<int>(curAngle);}
+               if(curAngle < 0){curAngle = 360+curAngle;}
+               itTransf *= QTransform::fromScale( scale(), scale() );
+               itTransf.translate( -dp.x(), -dp.y() );
+               setTransform(itTransf);
+               break;
+           }
+
+           case Qt::Key_D:
+           {
+               QTransform itTransf = transform();
+               QPointF dp = this->boundingRect().center();
+               itTransf.translate( dp.x(), dp.y() );
+               itTransf.rotate( rotation()+5, Qt::ZAxis );
+               curAngle += 5;// store rotation values
+               // ensure 0<=curAngle<360
+               if(curAngle >= 360){curAngle = 360%static_cast<int>(curAngle);}
+               if(curAngle < 0){curAngle = 360+curAngle;}
+               itTransf *= QTransform::fromScale( scale(), scale() );
+               itTransf.translate( -dp.x(), -dp.y() );
+               setTransform(itTransf);
+               break;
+           }
+
+           case Qt::Key_Q:
+           {
+               // soft brake
+               if(fields.getXSpeed() >= 0.05f)
+               {
+                   fields.addXSpeed(-0.05f);
+               }
+               else if(fields.getXSpeed() <= -0.05f)
+               {
+                   fields.addXSpeed(0.05f);
+               }
+               if(fields.getYSpeed() >= 0.05f)
+               {
+                   fields.addYSpeed(-0.05f);
+               }
+               else if(fields.getYSpeed() <= -0.05f)
+               {
+                   fields.addYSpeed(0.05f);
+               }
+               else if(std::abs(fields.getXSpeed()) < 0.05f && std::abs(fields.getYSpeed()) < 0.05f)
+               {
+                   fields.setXSpeed(0.0f);
+                   fields.setYSpeed(0.0f);
+               }
+               break;
+           }
+
+           case Qt::Key_Space:
+           {
+               // BULLETS FIRE TOO FAST JULIAN! TOO FAST!
+               // create a bullet
+               Bullet *bullet = new Bullet(curAngle, fields.getXSpeed(), fields.getYSpeed());
+               bullet->setPos(x(),y());
+               scene()->addItem(bullet);
+           }
+
+           default:
+           {
+               // prevents 435 warnings
+               break;
+           }
+           }
+        }
+
+        // update velocity
         move();
     }
 }
 
-// ADD DESC
+
+// Adds currently held keys to the QSet container.
 void mainship::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_A)
-    {
-        QTransform itTransf = transform();
-        QPointF dp = this->boundingRect().center();
-        itTransf.translate( dp.x(), dp.y() );
-        itTransf.rotate( rotation()-10, Qt::ZAxis );
-        curAngle -= 10;// store rotation values
-        // ensure 0<=curAngle<360
-        if(curAngle >= 360){curAngle = 360%static_cast<int>(curAngle);}
-        if(curAngle < 0){curAngle = 360+curAngle;}
-        itTransf *= QTransform::fromScale( scale(), scale() );
-        itTransf.translate( -dp.x(), -dp.y() );
-        setTransform(itTransf);
-    }
-    else if (event->key() == Qt::Key_D)
-    {
-        QTransform itTransf = transform();
-        QPointF dp = this->boundingRect().center();
-        itTransf.translate( dp.x(), dp.y() );
-        itTransf.rotate( rotation()+10, Qt::ZAxis );
-        curAngle += 10;// store rotation values
-        // ensure 0<=curAngle<360
-        if(curAngle >= 360){curAngle = 360%static_cast<int>(curAngle);}
-        if(curAngle < 0){curAngle = 360+curAngle;}
-        itTransf *= QTransform::fromScale( scale(), scale() );
-        itTransf.translate( -dp.x(), -dp.y() );
-        setTransform(itTransf);
-    }
-    else if (event->key() == Qt::Key_W)
-    {
-        //  Quick Suggestion by Julian:
-        //  we should use a while loop here. While the key is pressed,
-        //  increase by 1.0f and set a max speed so we're not all
-        //  Portal over here where you constantly build up speed.
-        //  If the button is released, you slow overtime, but not by
-        //  too much since 0 gravity dictates constant rates of motion
-        //  due to lack of friction in space.
+    keysPressed += (Qt::Key)event->key();
+}
 
-        // for momentum conservation
-        // add curAngle to momentumAngle and speed for accurate momentum
-        fields.addXSpeed(1.0f, curAngle);
-        fields.addYSpeed(1.0f, curAngle);
-        // for right now
-        //setPos(x()+4*qCos(curAngle*3.14/180), y()+4*qSin(curAngle*3.14/180));
-    }
 
-    else if (event->key() == Qt::Key_S)
-    {
-        // for momentum conservation
-        fields.addXSpeed(-0.5f, curAngle);
-        fields.addYSpeed(-0.5f, curAngle);
-        // for right now
-        //setPos(x()-2*qCos(curAngle*3.14/180), y()-2*qSin(curAngle*3.14/180));
-    }
-    else if (event->key() == Qt::Key_Q)
-    {
-        // for momentum conservation
-        if(fields.getXSpeed() >= 0.2f)
-        {
-            fields.addXSpeed(-0.2f);
-        }
-        else if(fields.getXSpeed() <= -0.2f)
-        {
-            fields.addXSpeed(0.2f);
-        }
-        if(fields.getYSpeed() >= 0.2f)
-        {
-            fields.addYSpeed(-0.2f);
-        }
-        else if(fields.getYSpeed() <= -0.2f)
-        {
-            fields.addYSpeed(0.2f);
-        }
-        else if(std::abs(fields.getXSpeed()) < 0.2f && std::abs(fields.getYSpeed()) < 0.2f)
-        {
-            fields.setXSpeed(0.0f);
-            fields.setYSpeed(0.0f);
-        }
-    }
-    else if (event->key() == Qt::Key_Space)
-    {
-        // create a bullet
-        Bullet *bullet = new Bullet(curAngle, fields.getXSpeed(), fields.getYSpeed());
-        bullet->setPos(x(),y());
-        scene()->addItem(bullet);
-    }
+// Removes currently unheld keys to the QSet container.
+void mainship::keyReleaseEvent(QKeyEvent *event)
+{
+    keysPressed -= (Qt::Key)event->key();
 }
