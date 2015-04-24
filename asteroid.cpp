@@ -25,45 +25,43 @@ Asteroid::Asteroid()
 
 Asteroid::Asteroid(int size)
 {
-    fields.setXSpeed(3);
+    fields.setXSpeed(0.5);
     fields.setYSpeed(0);
-    if (size == 3)
+
+    switch (size)
     {
+    case 3:
        this->size = 3;
        setRect(0, 0, 60, 60);
        setPen(QPen(Qt::white, 1));
-
        health = 10;
-    }
+       break;
 
-    if (size == 2)
-    {
+    case 2:
        this->size = 2;
        setRect(0, 0, 30, 30);
        setPen(QPen(Qt::white, 1));
-
        health = 5;
-    }
+       break;
 
-    if (size == 1)
-    {
+    case 1:
        this->size = 1;
        setRect(0, 0, 15, 15);
        setPen(QPen(Qt::white, 1));
-
        health = 2;
+       break;
     }
-
     // start the timer. 16.67ms = 60FPS
     timer.start(16.67, this);
 }
 
-//Asteroid health
+// Gets asteroid's health
 int Asteroid::getHealth() const
 {
     return health;
 }
 
+// Sets asteroid's health
 void Asteroid::setHealth(int value)
 {
     health = value;
@@ -81,12 +79,8 @@ void Asteroid::timerEvent(QTimerEvent *event)
 void Asteroid::move()
 {
     // move asteroid
-    // MANUALLY SET TO 0 DEGREES FOR TIME BEING
     setPos(x()+fields.getXSpeed(), y()+fields.getYSpeed());
-    if (pos().y() < 0)
-    {
-        delete this;
-    }
+
     // screen looping
     if(x() > 960)
         setPos( x() - 960, y());
@@ -98,6 +92,7 @@ void Asteroid::move()
     else if(y() < 0)
         setPos( x(), y() + 720);
 
+    // handles death
     if(health <= 0)
     {
         this->death();
@@ -105,44 +100,48 @@ void Asteroid::move()
     }
 }
 
-//the asteroids dire fate
+// the asteroids dire fate
 void Asteroid::death()
 {
-    if (this->size == 3)
+    switch (size)
+    {
+    case 3:
     {
         Asteroid * mAsteroid1 = new Asteroid(2);
-        mAsteroid1->fields.addXSpeed(1, 45);
-        mAsteroid1->fields.addYSpeed(1, 45);
+        mAsteroid1->fields.addXSpeed(1, 225);
+        mAsteroid1->fields.addYSpeed(1, 225);
         mAsteroid1->setPos(x(),y());
+
         Asteroid * mAsteroid2 = new Asteroid(2);
-        mAsteroid2->fields.addXSpeed(1, 15);
-        mAsteroid2->fields.addYSpeed(1, 15);
-        mAsteroid2->setPos(x(),y());
+        mAsteroid2->fields.addXSpeed(1, 45);
+        mAsteroid2->fields.addYSpeed(1, 45);
+        mAsteroid2->setPos(x()+30,y()+30);
 
         scene()->addItem(mAsteroid1);
         scene()->addItem(mAsteroid2);
+        break;
     }
-
-    else if (this->size == 2)
+    case 2:
     {
         Asteroid * sAsteroid1 = new Asteroid(1);
-        sAsteroid1->fields.addXSpeed(1, 45);
-        sAsteroid1->fields.addYSpeed(1, 45);
-        sAsteroid1->setPos(x(),y());
+        sAsteroid1->fields.addXSpeed(1.5, 270);
+        sAsteroid1->fields.addYSpeed(1.5, 270);
+        sAsteroid1->setPos(x()+7.5,y());
+
         Asteroid * sAsteroid2 = new Asteroid(1);
-        sAsteroid2->fields.addXSpeed(1, 20);
-        sAsteroid2->fields.addYSpeed(1, 20);
-        sAsteroid2->setPos(x(),y());
+        sAsteroid2->fields.addXSpeed(1.5, 135);
+        sAsteroid2->fields.addYSpeed(1.5, 135);
+        sAsteroid2->setPos(x(),y()+15);
+
         Asteroid * sAsteroid3 = new Asteroid(1);
-        sAsteroid3->fields.addXSpeed(1, 80);
-        sAsteroid3->fields.addYSpeed(1, 80);
-        sAsteroid3->setPos(x(),y());
+        sAsteroid3->fields.addXSpeed(1.5, 45);
+        sAsteroid3->fields.addYSpeed(1.5, 45);
+        sAsteroid3->setPos(x()+15,y()+15);
 
         scene()->addItem(sAsteroid1);
         scene()->addItem(sAsteroid2);
         scene()->addItem(sAsteroid3);
+        break;
     }
-
-    //else if (this->size = 1)
-
+    }
 }
