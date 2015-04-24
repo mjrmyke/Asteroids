@@ -35,6 +35,8 @@ private:
     QBasicTimer timer;
     // Container for key presses, prevents duplicates.
     QSet<Qt::Key> keysPressed;
+    // Handles key presses.
+    void keys();
 
 public:
     // Default constructor.

@@ -1,5 +1,4 @@
-/*
- * Group 2
+/* Group 2
  * Harpreet Dhunna (leader)
  * Jason Whitlow
  * Myke Walker

@@ -43,8 +43,8 @@ void MainWindow::StartButton_Clicked()
     game->setStickyFocus(true);// player cannot deselect ship
     music->stop();  //stops old music (intro or game)
 
-
-    music->setMedia(QUrl("qrc:/sounds/gamemusic.mp3")); //sets game music, in the case it came from the intro
+    //sets game music, in the case it came from the intro
+    music->setMedia(QUrl("qrc:/sounds/gamemusic.mp3"));
     music->play();  //plays music
 
 
@@ -64,7 +64,7 @@ void MainWindow::StartButton_Clicked()
     ship->setFocus();
 
 
-    // spawn asteroid
+    // spawn asteroids
     Asteroid *ast3 = new Asteroid(3);
     ast3->setPos(width()/4,height()/4);
     Asteroid *ast2 = new Asteroid(2);
