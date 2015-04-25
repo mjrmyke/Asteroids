@@ -30,6 +30,9 @@ public:
     void death();
     int getHealth() const;
     void setHealth(int value);
+    // Getters/Setters.
+    int getSize() const;
+    void setSize(int value);
 
 public slots:
     void move();

@@ -5,37 +5,16 @@ mainship::mainship()
 {
     // face up
     curAngle = 270;
-
+    // prevents weirdness on MinGW
     fields.setXSpeed(0);
     fields.setYSpeed(0);
-    //  set the overheat and the canFire variables
+    // set the overheat and the canFire variables
     overheated = false;
     canFire = true;
-
     //  heat iterator
     heat = 0.0f;
-
     // shields
     shield = 6;
-
-    /*switch(shield) {
-        case 6:
-          break;
-        case 5:
-          break;
-        case 4:
-          break;
-        case 3:
-          break;
-        case 2:
-          break;
-        case 1:
-          break;
-        case 0:
-          break;
-        default:
-          break;
-    }*/
 
     // start timer (60 FPS)
     timer.start(17, this);
@@ -45,6 +24,7 @@ mainship::mainship()
 // Updates the ship's position and velocity
 void mainship::move()
 {
+    bool hit = false;
     // move ship
     setPos(x()+fields.getXSpeed(), y()+fields.getYSpeed());
 
@@ -58,6 +38,49 @@ void mainship::move()
         setPos( x(),  y() - 720);
     else if(y() < 0)
         setPos( x(), y() + 720);
+
+    // collision detection
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+    for (int i=0, n=colliding_items.size(); i<n; ++i)
+    {
+        if (typeid(*(colliding_items[i])) == typeid(Asteroid))
+        {
+            // destroy asteroid for giggles
+            static_cast<Asteroid *>(colliding_items[i])->setHealth(0);
+
+            // reduce ship's shields depending on size of asteroid
+            switch(static_cast<Asteroid *>(colliding_items[i])->getSize())
+            {
+            case 3:
+                shield-=3;
+                break;
+
+            case 2:
+                shield-=2;
+                break;
+
+            case 1:
+                shield-=1;
+
+            default:
+                break;
+            }
+
+            // kill ship if dead
+            if(shield <= 0)
+            {
+                // remove ship from scene
+                this->scene()->removeItem(this);
+                // flag ship for deletion
+                hit = true;
+            }
+        }
+        if(hit)
+        {
+            delete this;
+            break;
+        }
+    }
 }
 
 
@@ -151,6 +174,7 @@ void mainship::keys()
                Bullet *bullet = new Bullet(curAngle, fields.getXSpeed(), fields.getYSpeed());
                bullet->setPos(x(),y());
                scene()->addItem(bullet);
+               // limits fire rate to 2 RPS
                fireRate.start(500, this);
                canFire = false;
            }
@@ -169,6 +193,7 @@ void mainship::keys()
 // Fires whenever the timer fires.
 void mainship::timerEvent(QTimerEvent *event)
 {
+    // main timer
     if (event->timerId() == timer.timerId())
     {
         // handle key presses
@@ -176,6 +201,7 @@ void mainship::timerEvent(QTimerEvent *event)
         // update position
         move();
     }
+    // fire rate timer
     if (event->timerId() == fireRate.timerId())
     {
         fireRate.stop();

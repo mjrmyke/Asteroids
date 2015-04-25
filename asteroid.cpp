@@ -67,6 +67,21 @@ void Asteroid::setHealth(int value)
     health = value;
 }
 
+
+// Gets asteroid's size.
+int Asteroid::getSize() const
+{
+    return size;
+}
+
+
+// Sets asteroid's size.
+void Asteroid::setSize(int value)
+{
+    size = value;
+}
+
+
 void Asteroid::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timer.timerId())
