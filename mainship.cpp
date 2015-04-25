@@ -66,6 +66,9 @@ void mainship::move()
                 break;
             }
 
+            // send signal for hud update
+            shieldsChanged(shield);
+
             // kill ship if dead
             if(shield <= 0)
             {
@@ -207,6 +210,13 @@ void mainship::timerEvent(QTimerEvent *event)
         fireRate.stop();
         canFire = true;
     }
+}
+
+
+// Emits signal when hurt.
+void shieldsChanged(int newValue)
+{
+    emit newValue;
 }
 
 

@@ -6,8 +6,14 @@
 #include <QMediaPlayer>
 #include <QTimerEvent>
 #include <QBasicTimer>
+#include "scene.h"
+#include "mainship.h"
+#include "bullet.h"
+#include "asteroid.h"
+#include <QMenuBar>
+#include <QBrush>
 
-class Scene;
+//class Scene;
 
 class MainWindow : public QMainWindow
 {
@@ -20,13 +26,13 @@ private:
     QGraphicsView *view;
     Scene *game;// Game area
     Scene *intro;// empty area for intro
-    QBasicTimer guiUpdater;
+
+    QGraphicsRectItem *shipShields;
+    mainship *ship;
 
 public slots:
    void StartButton_Clicked();
-
-protected:
-   void timerEvent(QTimerEvent *event);
+   void shipShieldHUDUpdate(int shields);
 
 };
 

@@ -1,12 +1,4 @@
 #include "mainwindow.h"
-#include "scene.h"
-#include "mainship.h"
-#include "bullet.h"
-#include "asteroid.h"
-#include <QMediaPlayer>
-#include <QMenuBar>
-#include <QBrush>
-
 
 // ADD DESC
 MainWindow::MainWindow():QMainWindow()
@@ -48,13 +40,11 @@ void MainWindow::StartButton_Clicked()
     music->setMedia(QUrl("qrc:/sounds/gamemusic.mp3"));
     music->play();  //plays music
 
-
     view->setScene(game);
     view->setBackgroundBrush(QBrush(QImage(":/images/bg.png")));
-    guiUpdater.start(17, this);
 
     //spawn player (ship)
-    mainship *ship = new mainship();
+    ship = new mainship();
     ship->setTransformOriginPoint(30,20);
     ship->setPixmap(QPixmap(":/images/ship.png"));
     ship->setPos(width()/2,height()/2);
@@ -63,12 +53,16 @@ void MainWindow::StartButton_Clicked()
     game->addItem(ship);
     ship->setFocus();
 
-    QGraphicsRectItem *shipShields = new QGraphicsRectItem();
-    shipShields->setRect(10, 20, width()/4, 10);
+    // creates ship health bar
+    shipShields = new QGraphicsRectItem();
+    shipShields->setRect(10, 10, width()/4, 10);
     shipShields->setZValue(2);
-    shipShields->setBrush(QBrush(Qt::green));
+    shipShields->setBrush(QBrush(Qt::cyan));
     shipShields->setOpacity(0.5);
     game->addItem(shipShields);
+    // make the health bar update when the ship emits signal
+    QObject::connect(ship, &mainship::shieldsChanged,
+                     this, &MainWindow::shipShieldHUDUpdate);
 
     // spawn asteroids
     Asteroid *ast3 = new Asteroid(3);
@@ -83,11 +77,47 @@ void MainWindow::StartButton_Clicked()
     game->addItem(ast1);
 }
 
-
-void MainWindow::timerEvent(QTimerEvent *event)
+// Updates ship health HUD
+void MainWindow::shipShieldHUDUpdate(int shields)
 {
-    if (event->timerId() == guiUpdater.timerId())
+    switch(shields)
     {
-//        shipShields->
+    case 6:
+        shipShields->setRect(10, 10, 240, 10);
+        shipShields->setBrush(QBrush(Qt::cyan));
+        break;
+
+    case 5:
+        shipShields->setRect(10, 10, 200, 10);
+        shipShields->setBrush(QBrush(Qt::green));
+        break;
+
+    case 4:
+        shipShields->setRect(10, 10, 160, 10);
+        shipShields->setBrush(QBrush(Qt::green));
+        break;
+
+    case 3:
+        shipShields->setRect(10, 10, 120, 10);
+        shipShields->setBrush(QBrush(Qt::yellow));
+        break;
+
+    case 2:
+        shipShields->setRect(10, 10, 80, 10);
+        shipShields->setBrush(QBrush(Qt::yellow));
+        break;
+
+    case 1:
+        shipShields->setRect(10, 10, 40, 10);
+        shipShields->setBrush(QBrush(Qt::red));
+        break;
+
+    case 0:
+        shipShields->setRect(10, 10, 0, 10);
+        break;
+
+    default:
+        break;
+
     }
 }

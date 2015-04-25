@@ -55,10 +55,12 @@ public:
     // Removes currently unheld keys to the QSet container.
     void keyReleaseEvent(QKeyEvent *event);
 
-
 protected:
     // Fires whenever the timer fires.
     void timerEvent(QTimerEvent *event);
+
+signals:
+    void shieldsChanged(int newValue);
 
 public slots:
     // Updates the ship's position and velocity
