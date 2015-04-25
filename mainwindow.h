@@ -12,6 +12,8 @@
 #include "asteroid.h"
 #include <QMenuBar>
 #include <QBrush>
+#include <stdlib.h>
+#include <time.h>
 
 //class Scene;
 
@@ -29,6 +31,13 @@ private:
 
     QGraphicsRectItem *shipShields;
     mainship *ship;
+
+    QBasicTimer asteroidSpawner;
+    void spawnAsteroids();
+
+protected:
+    // Fires whenever the timer fires.
+    void timerEvent(QTimerEvent *event);
 
 public slots:
    void StartButton_Clicked();

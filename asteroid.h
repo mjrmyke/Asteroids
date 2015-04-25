@@ -18,6 +18,8 @@ private:
     int health;
     updatePos fields;
     QBasicTimer timer;
+    QBasicTimer iFrames;
+    bool canCollide;
     float angle;
     int size;
 
@@ -33,6 +35,10 @@ public:
     // Getters/Setters.
     int getSize() const;
     void setSize(int value);
+    updatePos getFields() const;
+    void setFields(const updatePos &value);
+    bool getCanCollide() const;
+    void setCanCollide(bool value);
 
 public slots:
     void move();

@@ -28,9 +28,35 @@ MainWindow::MainWindow():QMainWindow()
 
 }
 
+void MainWindow::spawnAsteroids()
+{
+    static int seed;
+    seed++;
+    srand(time(NULL)+seed);
+    int i=0;
+    Asteroid *ast;
+    // spawn asteroids
+    for(i; i<3; i++)
+    {
+        ast = new Asteroid(rand()%3+1);
+        ast->setPos(width()-rand()%300+20,height()-rand()%300+20);
+
+        game->addItem(ast);
+    }
+}
+
+void MainWindow::timerEvent(QTimerEvent *event)
+{
+    if (event->timerId() == asteroidSpawner.timerId())
+    {
+        spawnAsteroids();
+    }
+}
+
 // ADD DESC
 void MainWindow::StartButton_Clicked()
 {
+    asteroidSpawner.stop();
     // create game scene and initialize game
     game = new Scene();
     game->setStickyFocus(true);// player cannot deselect ship
@@ -64,17 +90,9 @@ void MainWindow::StartButton_Clicked()
     QObject::connect(ship, &mainship::shieldsChanged,
                      this, &MainWindow::shipShieldHUDUpdate);
 
-    // spawn asteroids
-    Asteroid *ast3 = new Asteroid(3);
-    ast3->setPos(width()/4,height()/4);
-    Asteroid *ast2 = new Asteroid(2);
-    ast2->setPos(width()/6,height()/6);
-    Asteroid *ast1 = new Asteroid(1);
-    ast1->setPos(width()/3,height()/3);
-
-    game->addItem(ast3);
-    game->addItem(ast2);
-    game->addItem(ast1);
+    // Start spawning asteroids
+    asteroidSpawner.start(15000, this);
+    spawnAsteroids();
 }
 
 // Updates ship health HUD
@@ -117,6 +135,7 @@ void MainWindow::shipShieldHUDUpdate(int shields)
         break;
 
     default:
+        shipShields->setRect(10, 10, 0, 10);
         break;
 
     }

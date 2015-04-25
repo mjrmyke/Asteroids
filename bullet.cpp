@@ -27,7 +27,7 @@ Bullet::Bullet(float angle, float speedX, float speedY)
 {
     // spawn bullet in middle of ship, then draw
     setRect((qCos(angle*(M_PI/180))+30), ((qSin(angle*(M_PI/180)))+20),7,1);
-    setPen(QPen(Qt::green, 1));
+    setPen(QPen(Qt::yellow, 1));
 
     // rotates bullet relative to ship's position
     this->angle = angle;
@@ -96,7 +96,8 @@ void Bullet::update()
             // reduce asteroid health
             //static_cast<Asteroid *>(colliding_items[i])->setHealth(
                         //static_cast<Asteroid *>(colliding_items[i])->getHealth() - 2);
-            static_cast<Asteroid *>(colliding_items[i])->setHealth(0);
+            if(static_cast<Asteroid *>(colliding_items[i])->getCanCollide())
+                static_cast<Asteroid *>(colliding_items[i])->setHealth(0);
             // flag bullet for deletion
             hit = true;
         }

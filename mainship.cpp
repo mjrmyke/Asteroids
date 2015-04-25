@@ -94,6 +94,7 @@ void mainship::keys()
     {
        switch(k)
        {
+       case Qt::Key_Up:
        case Qt::Key_W:
        {
            // add curAngle to momentumAngle and speed for accurate momentum
@@ -102,6 +103,7 @@ void mainship::keys()
            break;
        }
 
+       case Qt::Key_Down:
        case Qt::Key_S:
        {
            // add curAngle to momentumAngle and speed for accurate momentum
@@ -110,6 +112,7 @@ void mainship::keys()
            break;
        }
 
+       case Qt::Key_Left:
        case Qt::Key_A:
        {
            QTransform itTransf = transform();
@@ -126,6 +129,7 @@ void mainship::keys()
            break;
        }
 
+       case Qt::Key_Right:
        case Qt::Key_D:
        {
            QTransform itTransf = transform();
@@ -142,6 +146,7 @@ void mainship::keys()
            break;
        }
 
+       case Qt::Key_Shift:
        case Qt::Key_Q:
        {
            // soft brake
@@ -177,15 +182,15 @@ void mainship::keys()
                Bullet *bullet = new Bullet(curAngle, fields.getXSpeed(), fields.getYSpeed());
                bullet->setPos(x(),y());
                scene()->addItem(bullet);
-               // limits fire rate to 2 RPS
-               fireRate.start(500, this);
+               // limits fire rate to 3 RPS
+               fireRate.start(333, this);
                canFire = false;
            }
        }
 
        default:
        {
-           // prevents 435 warnings
+           // prevents 430 warnings
            break;
        }
        }
