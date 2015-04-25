@@ -5,6 +5,9 @@ mainship::mainship()
 {
     // face up
     curAngle = 270;
+
+    fields.setXSpeed(0);
+    fields.setYSpeed(0);
     //  set the overheat and the canFire variables
     overheated = false;
     canFire = true;
@@ -15,7 +18,7 @@ mainship::mainship()
     // shields
     shield = 6;
 
-    switch(shield) {
+    /*switch(shield) {
         case 6:
           break;
         case 5:
@@ -32,7 +35,7 @@ mainship::mainship()
           break;
         default:
           break;
-    }
+    }*/
 
     // start timer (60 FPS)
     timer.start(17, this);
@@ -142,7 +145,6 @@ void mainship::keys()
 
        case Qt::Key_Space:
        {
-           // BULLETS FIRE TOO FAST JULIAN! TOO FAST!
            // create a bullet
            if (canFire)
            {

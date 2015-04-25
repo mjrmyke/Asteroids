@@ -69,20 +69,21 @@ void Bullet::timerEvent(QTimerEvent *event)
 // Handles what the bullet every frame.
 void Bullet::update()
 {
+    bool hit = false;
     // move bullet, adding ship velocity
     setPos( x() + initSpeedX/2 + (20*qCos(angle*(M_PI/180) )) ,
             y() + initSpeedY/2 + (20*qSin(angle*(M_PI/180) )) );
 
-    // screen looping
-//    if(x() > 960)
-//        setPos( x() - 960, y());
-//    else if(x() < 0)
-//        setPos( x() + 960, y());
+    /*// screen looping
+    if(x() > 960)
+        setPos( x() - 960, y());
+    else if(x() < 0)
+        setPos( x() + 960, y());
 
-//    if(y() > 720)
-//        setPos( x(),  y() - 720);
-//    else if(y() < 0)
-//        setPos( x(), y() + 720);
+    if(y() > 720)
+        setPos( x(),  y() - 720);
+    else if(y() < 0)
+        setPos( x(), y() + 720);*/
 
     // collision detection
     QList<QGraphicsItem *> colliding_items = collidingItems();
@@ -96,8 +97,13 @@ void Bullet::update()
             //static_cast<Asteroid *>(colliding_items[i])->setHealth(
                         //static_cast<Asteroid *>(colliding_items[i])->getHealth() - 2);
             static_cast<Asteroid *>(colliding_items[i])->setHealth(0);
-            // delete bullet
+            // flag bullet for deletion
+            hit = true;
+        }
+        if(hit)
+        {
             delete this;
+            break;
         }
     }
 
