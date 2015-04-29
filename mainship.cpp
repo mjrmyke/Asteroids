@@ -58,7 +58,6 @@ void mainship::move()
             case 2:
                 shield-=2;
                 break;
-
             case 1:
                 shield-=1;
 
