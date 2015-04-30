@@ -3,8 +3,6 @@
 // Default constructor.
 Bullet::Bullet()
 {
-    // draw the rect
-
     // size and position
     setRect((10*qCos(angle*(M_PI/180))),(12.55*qSin(angle*(M_PI/180))),5,1);
     setPen(QPen(Qt::green, 1));
@@ -74,16 +72,7 @@ void Bullet::update()
     setPos( x() + initSpeedX/2 + (20*qCos(angle*(M_PI/180) )) ,
             y() + initSpeedY/2 + (20*qSin(angle*(M_PI/180) )) );
 
-    /*// screen looping
-    if(x() > 960)
-        setPos( x() - 960, y());
-    else if(x() < 0)
-        setPos( x() + 960, y());
 
-    if(y() > 720)
-        setPos( x(),  y() - 720);
-    else if(y() < 0)
-        setPos( x(), y() + 720);*/
 
     // collision detection
     QList<QGraphicsItem *> colliding_items = collidingItems();
@@ -94,8 +83,7 @@ void Bullet::update()
             // remove bullet from scene
             this->scene()->removeItem(this);
             // reduce asteroid health
-            //static_cast<Asteroid *>(colliding_items[i])->setHealth(
-                        //static_cast<Asteroid *>(colliding_items[i])->getHealth() - 2);
+
             if(static_cast<Asteroid *>(colliding_items[i])->getCanCollide())
                 static_cast<Asteroid *>(colliding_items[i])->setHealth(0);
             // flag bullet for deletion
