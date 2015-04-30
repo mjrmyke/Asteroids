@@ -193,24 +193,7 @@ void Asteroid::death()
     }
     case 2:
     {
-        /*Asteroid * sAsteroid1 = new Asteroid(1);
-        sAsteroid1->fields.addXSpeed(1.5, 270);
-        sAsteroid1->fields.addYSpeed(1.5, 270);
-        sAsteroid1->setPos(x()+7.5,y());
 
-        Asteroid * sAsteroid2 = new Asteroid(1);
-        sAsteroid2->fields.addXSpeed(1.5, 135);
-        sAsteroid2->fields.addYSpeed(1.5, 135);
-        sAsteroid2->setPos(x(),y()+15);
-
-        Asteroid * sAsteroid3 = new Asteroid(1);
-        sAsteroid3->fields.addXSpeed(1.5, 45);
-        sAsteroid3->fields.addYSpeed(1.5, 45);
-        sAsteroid3->setPos(x()+15,y()+15);
-
-        scene()->addItem(sAsteroid1);
-        scene()->addItem(sAsteroid2);
-        scene()->addItem(sAsteroid3);*/
 
         Asteroid * sAsteroid1 = new Asteroid(1);
         sAsteroid1->fields.addXSpeed(frng(), drng());
