@@ -7,5 +7,6 @@
     <qresource prefix="/sounds">
         <file>intromusic.mp3</file>
         <file>gamemusic.mp3</file>
+        <file>bullet.wav</file>
     </qresource>
 </RCC>
