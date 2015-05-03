@@ -14,7 +14,10 @@ Bullet::Bullet()
     itTransf *= QTransform::fromScale( scale(), scale() );
     itTransf.translate( -dp.x(), -dp.y() );
     setTransform(itTransf);
-
+    
+    QMediaPlayer * sound = new QMediaPlayer();
+    sound->setMedia(QUrl("qrc:/sounds/bullet.wav"));
+    sound->play();
     // updates at 60FPS
     timer.start(16.67, this);
 }
