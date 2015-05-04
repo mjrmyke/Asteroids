@@ -7,6 +7,7 @@
 #include <QTimerEvent>
 #include <QPainter>
 #include <QtMath>
+#include <QMediaPlayer> //hopefully this compiles
 #include <cmath>
 #include <QList>
 #include <typeinfo>
