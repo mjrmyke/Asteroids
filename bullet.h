@@ -14,10 +14,6 @@
 #include <QGraphicsScene>
 #include "asteroid.h"
 
-enum weaponType {
-
-};
-
 class Bullet: public QObject, public QGraphicsRectItem
 {
     Q_OBJECT

@@ -19,14 +19,16 @@ SOURCES += main.cpp\
     mainship.cpp \
     bullet.cpp \
     updatepos.cpp \
-    asteroid.cpp
+    asteroid.cpp \
+    weapon.cpp
 
 HEADERS  += mainwindow.h \
     scene.h \
     mainship.h \
     bullet.h \
     updatepos.h \
-    asteroid.h
+    asteroid.h \
+    weapon.h
 
 RESOURCES += \
     resources.qrc
