@@ -1,7 +1,7 @@
 #ifndef Asteroid_H
 #define Asteroid_H
 
-#include <QGraphicsRectItem>
+#include <QGraphicsItem>
 #include <QObject>
 #include <QBasicTimer>
 #include <QTimerEvent>
@@ -10,7 +10,7 @@
 #include <cmath>
 #include "updatepos.h"
 
-class Asteroid: public QObject, public QGraphicsRectItem
+class Asteroid: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 

@@ -1,5 +1,6 @@
 #include "asteroid.h"
 #include <QGraphicsScene>
+#include <QGraphicsItem>
 #include <typeinfo>
 #include <stdlib.h>
 #include <time.h>
@@ -9,13 +10,10 @@
 Asteroid::Asteroid()
 {
     // size and position
-    setRect((10*qCos(angle*(M_PI/180))),(12.55*qSin(angle*(M_PI/180))),5,5);
-    setPen(QPen(Qt::white, 1));
-
     QTransform itTransf = transform();
     QPointF dp = this->boundingRect().center();
     itTransf.translate( dp.x(), dp.y() );
-    //itTransf.rotate( angle, Qt::ZAxis );
+    itTransf.rotate( angle, Qt::ZAxis );
     itTransf *= QTransform::fromScale( scale(), scale() );
     itTransf.translate( -dp.x(), -dp.y() );
     setTransform(itTransf);
@@ -60,22 +58,19 @@ Asteroid::Asteroid(int size)
     {
     case 3:
        this->size = 3;
-       setRect(0, 0, 60, 60);
-       setPen(QPen(Qt::white, 1));
+       setPixmap(QPixmap(":/images/largeAsteroid2.png"));
        health = 10;
        break;
 
     case 2:
        this->size = 2;
-       setRect(0, 0, 30, 30);
-       setPen(QPen(Qt::white, 1));
+       setPixmap(QPixmap(":/images/mediumAsteroid2.png"));
        health = 5;
        break;
 
     case 1:
        this->size = 1;
-       setRect(0, 0, 15, 15);
-       setPen(QPen(Qt::white, 1));
+       setPixmap(QPixmap(":/images/smallAsteroid2.png"));
        health = 2;
        break;
     }
@@ -149,6 +144,15 @@ void Asteroid::move()
     // move asteroid
     setPos(x()+fields.getXSpeed(), y()+fields.getYSpeed());
 
+    // rotates asteroid
+    QTransform itTransf = transform();
+    QPointF dp = this->boundingRect().center();
+    itTransf.translate( dp.x(), dp.y() );
+    itTransf.rotate( rotation()-2, Qt::ZAxis );
+    itTransf *= QTransform::fromScale( scale(), scale() );
+    itTransf.translate( -dp.x(), -dp.y() );
+    setTransform(itTransf);
+
     // screen looping
     if(x() > 960)
         setPos( x() - 960, y());
@@ -169,7 +173,7 @@ void Asteroid::move()
     }
 }
 
-// the asteroids dire fate
+// the asteroid's dire fate
 void Asteroid::death()
 {
     srand(time(NULL));

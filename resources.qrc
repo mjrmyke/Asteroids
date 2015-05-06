@@ -3,6 +3,9 @@
         <file>ship.png</file>
         <file>bg.png</file>
         <file>intro.png</file>
+        <file>largeAsteroid2.png</file>
+        <file>mediumAsteroid2.png</file>
+        <file>smallAsteroid2.png</file>
     </qresource>
     <qresource prefix="/sounds">
         <file>intromusic.mp3</file>
