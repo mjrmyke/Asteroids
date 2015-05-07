@@ -15,9 +15,7 @@ Bullet::Bullet()
     itTransf.translate( -dp.x(), -dp.y() );
     setTransform(itTransf);
     
-    QMediaPlayer * sound = new QMediaPlayer();
-    sound->setMedia(QUrl("qrc:/sounds/bullet.wav"));
-    sound->play();
+   
     // updates at 60FPS
     timer.start(16.67, this);
 }
@@ -45,6 +43,10 @@ Bullet::Bullet(float angle, float speedX, float speedY)
     this->initSpeedY = speedY;
     // put bullet under all objects
     setZValue(-1);
+    
+    QMediaPlayer * sound = new QMediaPlayer();
+    sound->setMedia(QUrl("qrc:/sounds/bullet.wav"));
+    sound->play();
 
     // start the timer. 16.67ms = 60FPS
     timer.start(16.67, this);
