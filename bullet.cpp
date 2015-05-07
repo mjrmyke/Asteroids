@@ -46,6 +46,7 @@ Bullet::Bullet(float angle, float speedX, float speedY)
     
     QMediaPlayer * sound = new QMediaPlayer();
     sound->setMedia(QUrl("qrc:/sounds/bullet.wav"));
+    sound->setVolume(50);
     sound->play();
 
     // start the timer. 16.67ms = 60FPS
