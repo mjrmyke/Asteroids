@@ -98,6 +98,17 @@ void MainWindow::StartButton_Clicked()
 // Updates ship health HUD
 void MainWindow::shipShieldHUDUpdate(int shields)
 {
+//text for death settings
+    QGraphicsTextItem* deadtext;
+
+    deadtext = new QGraphicsTextItem("You died, Game Over!");
+    deadtext->setDefaultTextColor(Qt::white);
+    deadtext->setPos(330,330);
+    deadtext->setScale(3);
+
+
+
+
     switch(shields)
     {
     case 6:
@@ -132,8 +143,30 @@ void MainWindow::shipShieldHUDUpdate(int shields)
 
     case 0:
         shipShields->setRect(10, 10, 0, 10);
+        game->addItem(deadtext);
+
         break;
 
+    case -1:
+        shipShields->setRect(10, 10, 0, 10);
+        game->addItem(deadtext);
+
+        break;
+
+    case -2:
+        shipShields->setRect(10, 10, 0, 10);
+        game->addItem(deadtext);
+
+
+        break;
+
+
+    case -3:
+        shipShields->setRect(10, 10, 0, 10);
+        game->addItem(deadtext);
+
+
+        break;
     default:
         shipShields->setRect(10, 10, 0, 10);
         break;

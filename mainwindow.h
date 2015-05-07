@@ -28,6 +28,7 @@ private:
     QGraphicsView *view;
     Scene *game;// Game area
     Scene *intro;// empty area for intro
+    QGraphicsTextItem* deadtext;
 
     QGraphicsRectItem *shipShields;
     mainship *ship;

@@ -73,6 +73,7 @@ void mainship::move()
             {
                 // remove ship from scene
                 this->scene()->removeItem(this);
+
                 // flag ship for deletion
                 hit = true;
             }
@@ -83,7 +84,7 @@ void mainship::move()
             break;
         }
     }
-}
+}//mainship::move
 
 
 // Handles key presses.
@@ -186,7 +187,6 @@ void mainship::keys()
                canFire = false;
            }
        }
-
        default:
        {
            // prevents 430 warnings

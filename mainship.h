@@ -8,16 +8,12 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QtMath>
-
 #include <cmath>
-
 #include <iostream>
 #include <QTimer>
-
 #include <QGraphicsItem>
 #include <QObject>
 #include <QMainWindow>
-
 #include <QBasicTimer>
 #include <QTimerEvent>
 #include <QSet>
