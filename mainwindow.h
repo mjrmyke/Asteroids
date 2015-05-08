@@ -22,19 +22,23 @@ class MainWindow : public QMainWindow
 public:
     MainWindow();// constructor
 
+    Scene *game;// Game area
+
+
 private:
     Q_OBJECT
     QMediaPlayer * music;
     QGraphicsView *view;
-    Scene *game;// Game area
     Scene *intro;// empty area for intro
     QGraphicsTextItem* deadtext;
+    QGraphicsTextItem* scorelabel;
+    QGraphicsTextItem* score;
 
     QGraphicsRectItem *shipShields;
     mainship *ship;
-
     QBasicTimer asteroidSpawner;
     void spawnAsteroids();
+    int points;
 
 protected:
     // Fires whenever the timer fires.
@@ -43,6 +47,7 @@ protected:
 public slots:
    void StartButton_Clicked();
    void shipShieldHUDUpdate(int shields);
+   void ScoreChange(int p);
 
 };
 

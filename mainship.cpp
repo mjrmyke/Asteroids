@@ -18,6 +18,7 @@ mainship::mainship()
 
     // start timer (60 FPS)
     timer.start(17, this);
+
 }
 
 
@@ -53,13 +54,18 @@ void mainship::move()
             {
             case 3:
                 shield-=3;
+                pointsChanged(-300);
                 break;
 
             case 2:
                 shield-=2;
+                pointsChanged(-200);
+
                 break;
             case 1:
                 shield-=1;
+                pointsChanged(-100);
+
 
             default:
                 break;
@@ -223,6 +229,12 @@ void shieldsChanged(int newValue)
     emit newValue;
 }
 
+
+// Emits signal when point changes.
+void pointsChanged(int newpoint)
+{
+    emit newpoint;
+}
 
 // Adds currently held keys to the QSet container.
 void mainship::keyPressEvent(QKeyEvent *event)

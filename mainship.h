@@ -42,8 +42,10 @@ private:
     float heat;
     // define the shields. should be a power up later, but we'll implement it now to make sure it works
     int shield;
+    //adds shields
 
 public:
+
     // Default constructor.
     mainship();
     // Adds currently held keys to the QSet container.
@@ -57,6 +59,8 @@ protected:
 
 signals:
     void shieldsChanged(int newValue);
+    void pointsChanged(int newpoint);
+
 
 public slots:
     // Updates the ship's position and velocity

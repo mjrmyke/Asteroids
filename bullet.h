@@ -33,11 +33,15 @@ protected:
     // Fires whenever the timers fire.
     void timerEvent(QTimerEvent *event);
 
+signals:
+    void bulletpointChanged(int newpoint);
+
 public:
     // Default constructor.
     Bullet();
     // Constructs with an angle and speed to enable realistic bullet firing.
     Bullet(float angle, float speedX, float speedY);
+
 
 public slots:
     // Handles what the bullet should do every frame.

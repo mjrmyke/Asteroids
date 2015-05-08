@@ -26,6 +26,8 @@ MainWindow::MainWindow():QMainWindow()
     music->setMedia(QUrl("qrc:/sounds/intromusic.mp3"));
     music->play();
 
+
+
 }
 
 void MainWindow::spawnAsteroids()
@@ -53,6 +55,8 @@ void MainWindow::timerEvent(QTimerEvent *event)
     }
 }
 
+
+
 // ADD DESC
 void MainWindow::StartButton_Clicked()
 {
@@ -79,6 +83,30 @@ void MainWindow::StartButton_Clicked()
     game->addItem(ship);
     ship->setFocus();
 
+    //score label text
+    scorelabel = new QGraphicsTextItem("Score:");
+    scorelabel->setDefaultTextColor(Qt::white);
+    scorelabel->setPos(740,10);
+    scorelabel->setScale(2);
+    game->addItem(scorelabel);
+
+    //score number text
+    int points= 0;
+    score = new QGraphicsTextItem(QString::number(points));
+    score->setDefaultTextColor(Qt::white);
+    score->setPos(840,10);
+    score->setScale(2);
+    game->addItem(score);
+
+    //link score / score changer for getting hit
+    QObject::connect(ship, &mainship::pointsChanged,
+                     this, &MainWindow::ScoreChange);
+
+
+//    QObject::connect(bullet, &Bullet::bulletpointChanged,
+//                     this, &MainWindow::ScoreChange);
+
+
     // creates ship health bar
     shipShields = new QGraphicsRectItem();
     shipShields->setRect(10, 10, width()/4, 10);
@@ -89,6 +117,10 @@ void MainWindow::StartButton_Clicked()
     // make the health bar update when the ship emits signal
     QObject::connect(ship, &mainship::shieldsChanged,
                      this, &MainWindow::shipShieldHUDUpdate);
+
+
+
+
 
     // Start spawning asteroids
     asteroidSpawner.start(15000, this);
@@ -115,61 +147,53 @@ void MainWindow::shipShieldHUDUpdate(int shields)
         shipShields->setRect(10, 10, 240, 10);
         shipShields->setBrush(QBrush(Qt::cyan));
         break;
-
     case 5:
         shipShields->setRect(10, 10, 200, 10);
         shipShields->setBrush(QBrush(Qt::green));
         break;
-
     case 4:
         shipShields->setRect(10, 10, 160, 10);
         shipShields->setBrush(QBrush(Qt::green));
         break;
-
     case 3:
         shipShields->setRect(10, 10, 120, 10);
         shipShields->setBrush(QBrush(Qt::yellow));
         break;
-
     case 2:
         shipShields->setRect(10, 10, 80, 10);
         shipShields->setBrush(QBrush(Qt::yellow));
         break;
-
     case 1:
         shipShields->setRect(10, 10, 40, 10);
         shipShields->setBrush(QBrush(Qt::red));
         break;
-
     case 0:
         shipShields->setRect(10, 10, 0, 10);
         game->addItem(deadtext);
-
         break;
-
     case -1:
         shipShields->setRect(10, 10, 0, 10);
         game->addItem(deadtext);
-
         break;
-
     case -2:
         shipShields->setRect(10, 10, 0, 10);
         game->addItem(deadtext);
-
-
         break;
-
-
     case -3:
         shipShields->setRect(10, 10, 0, 10);
         game->addItem(deadtext);
-
-
         break;
     default:
         shipShields->setRect(10, 10, 0, 10);
         break;
 
     }
+}
+
+void MainWindow::ScoreChange(int p)
+{
+    game->removeItem(score);
+    points = points + p;
+    score->setPlainText(QString::number(points));
+    game->addItem(score);
 }

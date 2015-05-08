@@ -97,11 +97,19 @@ void Bullet::update()
         }
         if(hit)
         {
+            bulletpointChanged(100);
+
             delete this;
             break;
         }
     }
 
+}
+
+// Emits signal when point changes.
+void bulletpointChanged(int newpoint)
+{
+    emit newpoint;
 }
 
 
