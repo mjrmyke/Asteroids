@@ -105,6 +105,7 @@ void MainWindow::StartButton_Clicked()
 
 //    QObject::connect(bullet, &Bullet::bulletpointChanged,
 //                     this, &MainWindow::ScoreChange);
+// this should link the bullet score additions to the score, but it can not identify bullet in line 106
 
 
     // creates ship health bar
