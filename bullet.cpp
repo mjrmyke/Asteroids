@@ -43,11 +43,6 @@ Bullet::Bullet(float angle, float speedX, float speedY)
     this->initSpeedY = speedY;
     // put bullet under all objects
     setZValue(-1);
-    
-    QMediaPlayer * sound = new QMediaPlayer();
-    sound->setMedia(QUrl("qrc:/sounds/bullet.wav"));
-    sound->setVolume(50);
-    sound->play();
 
     // start the timer. 16.67ms = 60FPS
     timer.start(16.67, this);
@@ -97,7 +92,7 @@ void Bullet::update()
         }
         if(hit)
         {
-            bulletpointChanged(100);
+            //bulletpointChanged(100);
 
             delete this;
             break;
@@ -107,10 +102,10 @@ void Bullet::update()
 }
 
 // Emits signal when point changes.
-void bulletpointChanged(int newpoint)
+/*void bulletpointChanged(int newpoint)
 {
     emit newpoint;
-}
+}*/
 
 
 // Despawns the bullet when its time has come.

@@ -21,13 +21,11 @@ class MainWindow : public QMainWindow
 {
 public:
     MainWindow();// constructor
-
     Scene *game;// Game area
-
 
 private:
     Q_OBJECT
-    QMediaPlayer * music;
+    QMediaPlayer *music;
     QGraphicsView *view;
     Scene *intro;// empty area for intro
     QGraphicsTextItem* deadtext;

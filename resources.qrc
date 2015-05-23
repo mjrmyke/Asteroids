@@ -11,5 +11,8 @@
         <file>intromusic.mp3</file>
         <file>gamemusic.mp3</file>
         <file>bullet.wav</file>
+        <file>slipped.mp3</file>
+        <file>time-was-flying-by.mp3</file>
+        <file>bullet2.mp3</file>
     </qresource>
 </RCC>

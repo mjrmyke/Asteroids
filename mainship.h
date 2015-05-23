@@ -41,11 +41,11 @@ private:
     // and the player will not be able to fire until the heat = 0.
     float heat;
     // define the shields. should be a power up later, but we'll implement it now to make sure it works
-    int shield;
-    //adds shields
+    int shield;//adds shields
+    // sfx
+    QMediaPlayer *sfx;
 
 public:
-
     // Default constructor.
     mainship();
     // Adds currently held keys to the QSet container.
@@ -58,8 +58,8 @@ protected:
     void timerEvent(QTimerEvent *event);
 
 signals:
-    void shieldsChanged(int newValue);
-    void pointsChanged(int newpoint);
+    void shieldsChanged(int);
+    //void pointsChanged(int newpoint);
 
 
 public slots:

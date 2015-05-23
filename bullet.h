@@ -7,7 +7,7 @@
 #include <QTimerEvent>
 #include <QPainter>
 #include <QtMath>
-#include <QMediaPlayer> //hopefully this compiles
+#include <QMediaPlayer>
 #include <cmath>
 #include <QList>
 #include <typeinfo>
@@ -34,7 +34,7 @@ protected:
     void timerEvent(QTimerEvent *event);
 
 signals:
-    void bulletpointChanged(int newpoint);
+    //void bulletpointChanged(int newpoint);
 
 public:
     // Default constructor.

@@ -28,14 +28,17 @@ void updatePos::addXSpeed(float value)
 
 void updatePos::addXSpeed(float speedConst, float angle)
 {
-    if (xSpeed >= 10){
-    xSpeed = 10;
+    if (xSpeed >= 10)
+    {
+        xSpeed = 10;
     }
-    else if (xSpeed <= -10){
-     xSpeed = -10;
-     }
-        else{
-    xSpeed = xSpeed+speedConst*cos(M_PI/180*angle);
+    else if (xSpeed <= -10)
+    {
+        xSpeed = -10;
+    }
+    else
+    {
+        xSpeed = xSpeed+speedConst*cos(M_PI/180*angle);
     }
 }
 
@@ -58,14 +61,17 @@ void updatePos::addYSpeed(float value)
 
 void updatePos::addYSpeed(float speedConst, float angle)
 {
-    if (ySpeed >= 10){
-    ySpeed = 10;
+    if (ySpeed >= 10)
+    {
+        ySpeed = 10;
     }
-   else if (ySpeed <= -10){
-    ySpeed = -10;
+    else if (ySpeed <= -10)
+    {
+        ySpeed = -10;
     }
-        else{
-    ySpeed = ySpeed+speedConst*sin(M_PI/180*angle);
+    else
+    {
+        ySpeed = ySpeed+speedConst*sin(M_PI/180*angle);
     }
 }
 

@@ -3,6 +3,7 @@
 // ADD DESC
 MainWindow::MainWindow():QMainWindow()
 {
+    game = NULL;
     // add drop down menus
     QMenu* fileMenu = menuBar()->addMenu("&File");
     fileMenu->addAction("&Start Game", this, SLOT(StartButton_Clicked()));
@@ -23,26 +24,25 @@ MainWindow::MainWindow():QMainWindow()
 
     //Intro Music
     music = new QMediaPlayer();
-    music->setMedia(QUrl("qrc:/sounds/intromusic.mp3"));
+    music->setMedia(QUrl("qrc:/sounds/slipped.mp3"));
     music->play();
-
-
-
 }
+
+
 
 void MainWindow::spawnAsteroids()
 {
-    static int seed;
+    static int seed=0;
     seed++;
-    srand(time(NULL)+seed);
-    int i=0;
+    srand(seed);
+    int i;
     Asteroid *ast;
     // spawn asteroids
-    for(i; i<3; i++)
+    for(i=0; i<3; i++)
     {
         ast = new Asteroid(rand()%3+1);
         ast->setPos(width()-rand()%300+20,height()-rand()%300+20);
-
+        ast->setTransformationMode(Qt::SmoothTransformation);
         game->addItem(ast);
     }
 }
@@ -60,14 +60,21 @@ void MainWindow::timerEvent(QTimerEvent *event)
 // ADD DESC
 void MainWindow::StartButton_Clicked()
 {
+    if(game != NULL)
+    {
+        delete game;
+        game = NULL;
+    }
+
     asteroidSpawner.stop();
+
     // create game scene and initialize game
     game = new Scene();
     game->setStickyFocus(true);// player cannot deselect ship
     music->stop();  //stops old music (intro or game)
 
     //sets game music, in the case it came from the intro
-    music->setMedia(QUrl("qrc:/sounds/gamemusic.mp3"));
+    music->setMedia(QUrl("qrc:/sounds/time-was-flying-by.mp3"));
     music->play();  //plays music
 
     view->setScene(game);
@@ -99,13 +106,13 @@ void MainWindow::StartButton_Clicked()
     game->addItem(score);
 
     //link score / score changer for getting hit
-    QObject::connect(ship, &mainship::pointsChanged,
-                     this, &MainWindow::ScoreChange);
+    /*QObject::connect(ship, &mainship::pointsChanged,
+                     this, &MainWindow::ScoreChange);*/
 
 
-//    QObject::connect(bullet, &Bullet::bulletpointChanged,
-//                     this, &MainWindow::ScoreChange);
-// this should link the bullet score additions to the score, but it can not identify bullet in line 106
+    //    QObject::connect(bullet, &Bullet::bulletpointChanged,
+    //                     this, &MainWindow::ScoreChange);
+    // this should link the bullet score additions to the score, but it can not identify bullet in line 106
 
 
     // creates ship health bar
@@ -120,9 +127,6 @@ void MainWindow::StartButton_Clicked()
                      this, &MainWindow::shipShieldHUDUpdate);
 
 
-
-
-
     // Start spawning asteroids
     asteroidSpawner.start(15000, this);
     spawnAsteroids();
@@ -131,16 +135,13 @@ void MainWindow::StartButton_Clicked()
 // Updates ship health HUD
 void MainWindow::shipShieldHUDUpdate(int shields)
 {
-//text for death settings
+    //text for death settings
     QGraphicsTextItem* deadtext;
 
     deadtext = new QGraphicsTextItem("You died, Game Over!");
     deadtext->setDefaultTextColor(Qt::white);
     deadtext->setPos(330,330);
     deadtext->setScale(3);
-
-
-
 
     switch(shields)
     {

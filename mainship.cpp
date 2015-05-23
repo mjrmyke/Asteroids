@@ -16,6 +16,10 @@ mainship::mainship()
     // shields
     shield = 6;
 
+    sfx = new QMediaPlayer();
+    sfx->setMedia(QUrl("qrc:/sounds/bullet2.mp3"));
+    sfx->setVolume(50);
+
     // start timer (60 FPS)
     timer.start(17, this);
 
@@ -54,17 +58,17 @@ void mainship::move()
             {
             case 3:
                 shield-=3;
-                pointsChanged(-300);
+                //pointsChanged(-300);
                 break;
 
             case 2:
                 shield-=2;
-                pointsChanged(-200);
+                //pointsChanged(-200);
 
                 break;
             case 1:
                 shield-=1;
-                pointsChanged(-100);
+                //pointsChanged(-100);
 
 
             default:
@@ -191,6 +195,8 @@ void mainship::keys()
                // limits fire rate to 3 RPS
                fireRate.start(333, this);
                canFire = false;
+               sfx->stop();
+               sfx->play();
            }
        }
        default:
@@ -224,17 +230,15 @@ void mainship::timerEvent(QTimerEvent *event)
 
 
 // Emits signal when hurt.
-void shieldsChanged(int newValue)
+void shieldsChanged(int)
 {
-    emit newValue;
 }
-
 
 // Emits signal when point changes.
-void pointsChanged(int newpoint)
+/*void pointsChanged(int newpoint)
 {
     emit newpoint;
-}
+}*/
 
 // Adds currently held keys to the QSet container.
 void mainship::keyPressEvent(QKeyEvent *event)
